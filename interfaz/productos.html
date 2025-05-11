@@ -1,26 +1,37 @@
+<!-- clientes.html -->
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>productos</title>
+  <title>Gestión de Clientes</title>
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
-
 <body>
+  <header class="header">
+    <h1 class="header__titulo">Gestión de Clientes</h1>
+  </header>
 
-  <div class="card">
-    <img class="card-img-top" src="../img/mad1.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
+  <main class="clientes">
+    <form class="clientes__form">
+      <input class="clientes__input" type="text" placeholder="Nombre">
+      <input class="clientes__input" type="email" placeholder="Correo">
+      <input class="clientes__input" type="tel" placeholder="Teléfono">
+      <button class="clientes__btn" type="submit">Registrar</button>
+    </form>
 
-
+    <table class="clientes__tabla">
+      <thead>
+        <tr class="clientes__fila--cabecera">
+          <th class="clientes__columna">Nombre</th>
+          <th class="clientes__columna">Correo</th>
+          <th class="clientes__columna">Teléfono</th>
+          <th class="clientes__columna">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- clientes -->
+      </tbody>
+    </table>
+  </main>
 </body>
-
 </html>

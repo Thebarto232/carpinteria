@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ventas</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__titulo">Gestión de Ventas</h1>
+  </header>
+
+  <main class="ventas">
+    <form class="ventas__form">
+      <select class="ventas__select">
+        <option>Proveedor</option>
+      </select>
+      <select class="ventas__select">
+        <option>Cliente</option>
+      </select>
+      <input class="ventas__input" type="date" placeholder="Fecha de venta">
+      <input class="ventas__input" type="number" placeholder="Valor de venta">
+      <input class="ventas__input" type="number" placeholder="Descuento">
+      <button class="ventas__btn" type="submit">Registrar Venta</button>
+    </form>
+
+    <table class="ventas__tabla">
+      <thead>
+        <tr class="ventas__fila--cabecera">
+          <th class="ventas__columna">Proveedor</th>
+          <th class="ventas__columna">Cliente</th>
+          <th class="ventas__columna">Fecha</th>
+          <th class="ventas__columna">Valor</th>
+          <th class="ventas__columna">Descuento</th>
+          <th class="ventas__columna">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ventas -->
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

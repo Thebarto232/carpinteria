@@ -1,0 +1,608 @@
+* {
+  margin: 0; /* Remueve los márgenes predeterminados de todos los elementos */
+  padding: 0; /* Remueve el padding predeterminado de todos los elementos */
+  box-sizing: border-box; /* Cambia el modelo de caja para que padding y border se incluyan en el tamaño total de los elementos */
+}
+
+
+
+body {
+  font-family: Arial, sans-serif; /* Establece la fuente del cuerpo a Arial o una fuente sans-serif alternativa */
+  background-color: #160a0a; /* Color de fondo claro para el cuerpo */
+  color: #333; /* Color del texto oscuro para el cuerpo */
+  line-height: 1.6; /* Aumenta el espacio entre líneas para mejorar la legibilidad */
+   overflow-x: hidden; /*Desaparece la barra espaciadora de la parte Horizontal*/
+}
+.header{
+  display: block; /* Cambia el display a bloque para ocupar todo el ancho disponible */
+}
+.logo__img{
+  width: 100px; /* Establece el ancho de la imagen del logo a 100px */
+  height: auto; /* Mantiene la proporción de la imagen automáticamente */
+  margin-right: 20px; /* Añade un margen derecho de 20px */
+  border-radius: 50%; /* Hace que la imagen tenga bordes redondeados, creando un efecto circular */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade una sombra sutil alrededor de la imagen para darle profundidad */
+  transition: transform 0.3s; /* Añade una transición suave al efecto de hover */
+
+}
+.header_content{
+  display: flex; /* Utiliza flexbox para alinear los elementos dentro del contenedor */
+  justify-content: space-between; /* Espacia los elementos de manera uniforme entre el inicio y el final del contenedor */
+  align-items: center; /* Alinea verticalmente los elementos al centro */
+  padding: 15px; /* Añade un padding de 10px alrededor del contenido */
+  background-color: #386491; /* Color de fondo claro para el encabezado */
+}
+.header__derecha{
+  display: flex; /* Utiliza flexbox para alinear los elementos dentro del contenedor */
+  align-items: center;  /* Alinea verticalmente los elementos al centro */
+  margin: 0 20px; /* Añade un margen de 0 arriba y abajo, y 20px a los lados */
+  width: 100%;
+  padding: 10px; /* Añade un padding de 10px alrededor del contenido */
+  background-color: #386491; /* Color de fondo claro para el encabezado */
+  text-decoration: none /* Remueve el subrayado de los enlaces */;
+}
+.navegacion__list{
+   display: flex; /* Organiza la lista de navegación en una fila */
+  align-items: center; /* Centra verticalmente los elementos de la lista */
+  list-style: none; /* Quita los puntos de la lista */
+}
+.navegacion__link{
+  display: flex; /* Cambia el display a bloque para ocupar todo el ancho disponible */
+  align-items: center; /* Centra verticalmente los elementos de la lista */
+  text-decoration: none; /* Remueve el subrayado de los enlaces */
+  color: #fff; /* Color del texto blanco para los enlaces */
+  padding: 10px 15px; /* Añade un padding de 10px arriba y abajo, y 15px a los lados */
+  border-radius: 5px; /* Bordes redondeados para los enlaces */
+  transition: background-color 0.3s; /* Añade una transición suave al color de fondo */
+}
+.navegacion__link:hover{
+  background-color: #2c3e50; /* Cambia el color de fondo al pasar el ratón por encima */
+  color: #fff; /* Cambia el color del texto a blanco al pasar el ratón por encima */
+}
+.navegacion{
+display: flex; /* Organiza los elementos de la navegación en línea */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 20px; /* Añade un espacio de 20px entre los elementos de la navegación */
+}
+/* -------------------menu----------------------- */
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+.menu__btn {
+    cursor: pointer;
+    font-size: 24px;
+    display: inline-block;
+    padding: 10px;
+}
+
+.menu__content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-width: 100px;
+}
+
+.menu__toggle {
+    display: none;
+}
+
+.menu__toggle:checked + .menu__btn + .menu__content {
+    display: block;
+}
+
+/* -----formulario----------------- */ 
+/* Bloque base */
+.form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Modificadores por tipo */
+.form--cliente {
+  border-color: #007bff;
+}
+
+.form--proveedor {
+  border-color: #28a745;
+}
+
+.form--login {
+  border-color: #6c757d;
+}
+
+/* Elementos internos */
+.form__grupo {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form__input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.form__input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+.form__btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.form__btn:hover {
+  background-color: #0056b3;
+}
+
+
+/* -------- Categoría -------- */
+.categoria {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: aqua; 
+}
+
+.categoria__form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.categoria__input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.categoria__button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.categoria__button--editar {
+  background-color: #2196F3;
+}
+
+.categoria__button--eliminar {
+  background-color: #f44336;
+}
+
+/* -------- Tabla -------- */
+.categoria__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.categoria__tabla-header,
+.categoria__tabla-dato {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.categoria__tabla-fila:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.header__titulo {
+  margin: 0;
+  font-size: 24px;
+}
+
+/* -------- Cliente -------- */
+.cliente {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cliente__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cliente__input {
+  flex: 1 1 30%;
+  padding: 0.5rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.cliente__button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cliente__button--editar {
+  background-color: #2196F3;
+}
+
+.cliente__button--eliminar {
+  background-color: #f44336;
+}
+
+/* -------- Tabla -------- */
+.cliente__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cliente__tabla-header,
+.cliente__tabla-dato {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.cliente__tabla-fila:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+.header__titulo {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.clientes {
+  padding: 2rem;
+}
+.clientes__form {
+  margin-bottom: 2rem;
+}
+.clientes__input {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+.clientes__btn {
+  padding: 0.5rem 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.clientes__btn:hover {
+  background-color: #125ca1;
+}
+.clientes__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+.clientes__columna, .clientes__fila--cabecera th {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+/* ------ ventas ---------------- */
+
+.detalle-venta {
+  padding: 2rem;
+}
+
+.detalle-venta__form {
+  margin-bottom: 2rem;
+}
+
+.detalle-venta__select,
+.detalle-venta__input {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.detalle-venta__btn {
+  padding: 0.5rem 1rem;
+  background-color: #388e3c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.detalle-venta__btn:hover {
+  background-color: #2e7d32;
+}
+
+.detalle-venta__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detalle-venta__columna,
+.detalle-venta__fila--cabecera th {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+
+/* ------proveedores---------------- */
+
+.proveedores {
+  padding: 2rem;
+}
+
+.proveedores__form {
+  margin-bottom: 2rem;
+}
+
+.proveedores__input {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.proveedores__btn {
+  padding: 0.5rem 1rem;
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.proveedores__btn:hover {
+  background-color: #0d47a1;
+}
+
+.proveedores__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.proveedores__columna,
+.proveedores__fila--cabecera th {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+
+/* ------ usuarios---------------- */
+.usuarios {
+  padding: 2rem;
+}
+
+.usuarios__form {
+  margin-bottom: 2rem;
+}
+
+.usuarios__input,
+.usuarios__select {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.usuarios__btn {
+  padding: 0.5rem 1rem;
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.usuarios__btn:hover {
+  background-color: #0d47a1;
+}
+
+.usuarios__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.usuarios__columna,
+.usuarios__fila--cabecera th {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+
+
+/* ------ ventas---------------- */
+.ventas {
+  padding: 2rem;
+}
+
+.ventas__form {
+  margin-bottom: 2rem;
+}
+
+.ventas__input,
+.ventas__select {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.ventas__btn {
+  padding: 0.5rem 1rem;
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.ventas__btn:hover {
+  background-color: #0d47a1;
+}
+
+.ventas__tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ventas__columna,
+.ventas__fila--cabecera th {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+
+header, footer {
+  background-color: #2a2a2a;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Navigation */
+.navegacion__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navegacion__item {
+  display: inline;
+  margin-right: 15px;
+}
+
+.navegacion__link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+/* Cards Container */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Card Styles */
+.card {
+  width: 30%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card h3 {
+  font-size: 1.4em;
+  color: #333;
+}
+
+.card p {
+  color: #666;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+.card button {
+  background-color: #2a2a2a;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+  background-color: #333;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+
+/* Main Content */
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+h1, h2 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}

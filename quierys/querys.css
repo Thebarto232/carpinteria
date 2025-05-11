@@ -1,0 +1,64 @@
+/* Media Queries for Responsive Design */
+/* --- Media Queries --- */
+
+/* Mobile (<= 768px) */
+@media (max-width: 768px) {
+    .header_content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .logo__img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+  
+    .navegacion__list {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .navegacion__item {
+      width: 100%;
+      text-align: left;
+    }
+  
+    .menu__btn {
+      font-size: 30px;
+    }
+  
+    .menu__content {
+      position: static;
+    }
+  }
+  
+  /* Tablets (<= 1024px) */
+  @media (max-width: 1024px) {
+    .header_content {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  
+    .navegacion__list {
+      flex-direction: row;
+    }
+  
+    .navegacion__link {
+      padding: 8px 12px;
+    }
+  }
+  
+  /* Larger screens (>= 1025px) */
+  @media (min-width: 1025px) {
+    .header_content {
+      padding: 20px;
+    }
+  
+    .navegacion__list {
+      flex-direction: row;
+    }
+  
+    .navegacion__link {
+      padding: 12px 20px;
+    }
+  }

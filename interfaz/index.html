@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>frame</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Sistema de Carpintería</title>
+  <link rel="stylesheet" href="../css/styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
 </head>
 
 <body>
 
-  <!-- <----header---->
+  <!-- Header -->
   <header>
     <div class="header_content">
       <div class="header__izquierda">
-        <img src="../img/galeria carpinteria/logo.jpg" alt="logo" class="logo__img">
+        <img src="../img/galeria carpinteria/logo.jpg" alt="Logo de Carpintería" class="logo__img">
       </div>
       <div class="header__derecha">
         <nav class="navegacion">
@@ -25,36 +24,168 @@
               <input type="checkbox" id="menu__toggle" class="menu__toggle">
               <label for="menu__toggle" class="menu__btn">☰</label>
               <div class="menu__content">
-                <li>
-                  <a class="menu__item" href="./productos.html">Productos</a>
-                </li>
-                <li>
-                  <a class="menu__item" href="#">clientes</a>
-                </li>
-                <li>
-                  <a class="menu__item" href="#">venta</a>
-                </li>
+                <li><a class="menu__item" href="productos.html">Productos</a></li>
+                <li><a class="menu__item" href="categorias.html">Categorías</a></li>
+                <li><a class="menu__item" href="clientes.html">Clientes</a></li>
+                <li><a class="menu__item" href="provedores.html">Proveedores</a></li>
+                <li><a class="menu__item" href="usuarios.html">Usuarios</a></li>
+                <li><a class="menu__item" href="ventas.html">Ventas</a></li>
+                <li><a class="menu__item" href="detalle_venta.html">Detalle venta</a></li>
               </div>
             </div>
-            <li class="navegacion__item"><a href="" class="navegacion__link">Inicio</a></li>
-            <li class="navegacion__item"><a href="" class="navegacion__link">nosotros</a></li>
-            <li class="navegacion__item"><a href="" class="navegacion__link"></a></li>
-
+            <li class="navegacion__item"><a href="index.html" class="navegacion__link">Inicio</a></li>
+            <li class="navegacion__item"><a href="nosotros.html" class="navegacion__link">Nosotros</a></li>
+            <li class="navegacion__item"><a href="contacto.html" class="navegacion__link">Contacto</a></li>
           </ul>
         </nav>
       </div>
-
-
-
-
+    </div>
   </header>
 
+  <!-- Sidebar -->
   <aside class="sidebar">
-
+    <h2>Enlaces rápidos</h2>
+    <ul>
+      <li><a href="productos.html">Ver productos</a></li>
+      <li><a href="categorias.html">Ver categorías</a></li>
+      <li><a href="clientes.html">Ver clientes</a></li>
+      <li><a href="provedores.html">Ver proveedores</a></li>
+      <li><a href="ventas.html">Ver ventas</a></li>
+    </ul>
   </aside>
 
+  <!-- Main Content -->
+  <main>
+    <section class="main-content">
+      <h1>Bienvenido al Sistema de Carpintería</h1>
+      <p>Gestiona tus productos, clientes, proveedores y ventas de manera eficiente.</p>
 
+      <!-- Cards para productos destacados -->
+      <h2>Productos destacados</h2>
+      <div class="cards-container">
+        <div class="card">
+          <img src="../img/mad1.png" alt="Producto 1">
+          <div class="card-content">
+            <h3>Producto 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/mad1.png" alt="Producto 2">
+          <div class="card-content">
+            <h3>Producto 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/mad1.png" alt="Producto 3">
+          <div class="card-content">
+            <h3>Producto 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+      </div>
 
+      <!-- Cards para categorías -->
+      <h2>Categorías más populares</h2>
+      <div class="cards-container">
+        <div class="card">
+          <img src="../img/galeria carpinteria/logo.jpg" alt="Categoría 1">
+          <div class="card-content">
+            <h3>Categoría 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/galeria carpinteria/logo.jpg" alt="Categoría 2">
+          <div class="card-content">
+            <h3>Categoría 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/galeria carpinteria/logo.jpg" alt="Categoría 3">
+          <div class="card-content">
+            <h3>Categoría 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards para clientes -->
+      <h2>Clientes más recientes</h2>
+      <div class="cards-container">
+        <div class="card">
+          <img src="https://via.placeholder.com/300" alt="Cliente 1">
+          <div class="card-content">
+            <h3>Cliente 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/300" alt="Cliente 2">
+          <div class="card-content">
+            <h3>Cliente 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/300" alt="Cliente 3">
+          <div class="card-content">
+            <h3>Cliente 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards para proveedores -->
+      <h2>Proveedores</h2>
+      <div class="cards-container">
+        <div class="card">
+          <img src="https://via.placeholder.com/300" alt="Proveedor 1">
+          <div class="card-content">
+            <h3>Proveedor 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/300" alt="Proveedor 2">
+          <div class="card-content">
+            <h3>Proveedor 2</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/300" alt="Proveedor 3">
+          <div class="card-content">
+            <h3>Proveedor 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer_content">
+      <p>&copy; 2025 Carpintería XYZ. Todos los derechos reservados.</p>
+      <p>Dirección: Calle Ficticia 123, Ciudad, País.</p>
+      <p>Teléfono: +123 456 789</p>
+    </div>
+  </footer>
 
 </body>
 

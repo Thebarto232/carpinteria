@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Usuarios</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__titulo">Gestión de Usuarios</h1>
+  </header>
+
+  <main class="usuarios">
+    <form class="usuarios__form">
+      <input class="usuarios__input" type="text" placeholder="Nombre de usuario">
+      <input class="usuarios__input" type="email" placeholder="Correo">
+      <input class="usuarios__input" type="password" placeholder="Contraseña">
+      <select class="usuarios__select">
+        <option value="admin">Administrador</option>
+        <option value="empleado">Empleado</option>
+      </select>
+      <button class="usuarios__btn" type="submit">Registrar</button>
+    </form>
+
+    <table class="usuarios__tabla">
+      <thead>
+        <tr class="usuarios__fila--cabecera">
+          <th class="usuarios__columna">Nombre</th>
+          <th class="usuarios__columna">Correo</th>
+          <th class="usuarios__columna">Tipo de usuario</th>
+          <th class="usuarios__columna">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- usuarios -->
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

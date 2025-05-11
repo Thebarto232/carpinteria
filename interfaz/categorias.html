@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Categorías</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="header__titulo">Gestión de Categorías</h1>
+  </header>
+
+  <main class="categoria">
+    <form class="categoria__form">
+      <input class="categoria__input" type="text" placeholder="Descripción">
+      <button class="categoria__button" type="submit">Agregar</button>
+    </form>
+
+    <table class="categoria__tabla">
+      <thead class="categoria__tabla-head">
+        <tr class="categoria__tabla-fila">
+          <th class="categoria__tabla-header">Descripción</th>
+          <th class="categoria__tabla-header">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="categoria__tabla-body">
+        <!-- Aquí irán las categorías -->
+        <tr class="categoria__tabla-fila">
+          <td class="categoria__tabla-dato">Sillas</td>
+          <td class="categoria__tabla-dato">
+            <button class="categoria__button categoria__button--editar">Editar</button>
+            <button class="categoria__button categoria__button--eliminar">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+
+</body>
+</html>
