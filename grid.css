@@ -1,0 +1,34 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container{
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 120px 1fr;
+  grid-template-areas: 
+    "sidebar header"
+    "sidebar main";
+}
+
+header{
+  grid-area: header;
+}
+
+main{
+  grid-area: main;
+}
+
+aside{
+  grid-area: sidebar;
+}
+
+ul{
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}

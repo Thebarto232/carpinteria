@@ -1,3 +1,4 @@
+
 * {
   margin: 0; /* Remueve los márgenes predeterminados de todos los elementos */
   padding: 0; /* Remueve el padding predeterminado de todos los elementos */
@@ -17,12 +18,11 @@ body {
   display: block; /* Cambia el display a bloque para ocupar todo el ancho disponible */
 }
 .logo__img{
-  width: 100px; /* Establece el ancho de la imagen del logo a 100px */
-  height: auto; /* Mantiene la proporción de la imagen automáticamente */
-  margin-right: 20px; /* Añade un margen derecho de 20px */
-  border-radius: 50%; /* Hace que la imagen tenga bordes redondeados, creando un efecto circular */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añade una sombra sutil alrededor de la imagen para darle profundidad */
-  transition: transform 0.3s; /* Añade una transición suave al efecto de hover */
+    width: 50px;
+    margin-right: 15px;
+    margin-left: 15px;
+    border-radius: 50px;
+    display: block;
 
 }
 .header_content{
@@ -40,11 +40,14 @@ body {
   padding: 10px; /* Añade un padding de 10px alrededor del contenido */
   background-color: #386491; /* Color de fondo claro para el encabezado */
   text-decoration: none /* Remueve el subrayado de los enlaces */;
+
 }
 .navegacion__list{
    display: flex; /* Organiza la lista de navegación en una fila */
   align-items: center; /* Centra verticalmente los elementos de la lista */
   list-style: none; /* Quita los puntos de la lista */
+  padding: 0; /* Quita el padding de la lista */
+
 }
 .navegacion__link{
   display: flex; /* Cambia el display a bloque para ocupar todo el ancho disponible */
@@ -68,6 +71,17 @@ display: flex; /* Organiza los elementos de la navegación en línea */
 .menu {
     position: relative;
     display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px; /* Añade un padding de 10px alrededor del contenido */
+    border-radius: 5px; /* Bordes redondeados para el menú */
+    color: #fff; /* Color del texto blanco para el menú */
+    text-decoration: none; /* Remueve el subrayado de los enlaces */
+    text-align: center;
+    font-size: 15px; /* Tamaño de fuente para el menú */
+    transition: background-color 0.3s; /* Añade una transición suave al color de fondo */
+
+    
 }
 
 .menu__btn {
@@ -75,6 +89,8 @@ display: flex; /* Organiza los elementos de la navegación en línea */
     font-size: 24px;
     display: inline-block;
     padding: 10px;
+    display: none; 
+
 }
 
 .menu__content {
@@ -84,6 +100,7 @@ display: flex; /* Organiza los elementos de la navegación en línea */
     border: 1px solid #ccc;
     padding: 10px;
     min-width: 100px;
+    
 }
 
 .menu__toggle {
@@ -91,7 +108,42 @@ display: flex; /* Organiza los elementos de la navegación en línea */
 }
 
 .menu__toggle:checked + .menu__btn + .menu__content {
-    display: block;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+.menu__item{
+   display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-decoration: none; /* Remueve el subrayado de los enlaces */
+    color: #386491; /* Color del texto claro para el menú */
+    border-radius: 5px; /* Bordes redondeados para los enlaces */
+    transition: background-color 0.3s; /* Añade una transición suave al color de fondo */
+    font-size: 15px; /* Tamaño de fuente para los enlaces */
+    text-align: center;
+    margin: 5px 0; /* Añade un margen de 5px arriba y abajo, y 0 a los lados */
+    background-color: #f9f9f9; /* Color de fondo claro para los enlaces */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil alrededor de los enlaces */
+    cursor: pointer; /* Cambia el cursor a puntero al pasar por encima */
+    
+
+}
+
+
+
+.menu__item:hover{
+  background-color: #2c3e50; /* Cambia el color de fondo al pasar el ratón por encima */
+  color: #fff; /* Cambia el color del texto a blanco al pasar el ratón por encima */
 }
 
 /* -----formulario----------------- */ 
@@ -601,8 +653,112 @@ footer a:hover {
   padding: 20px;
 }
 
-h1, h2 {
-  font-size: 2em;
-  color: #333;
+.serach_content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 10px;
+  border-radius: 5px;
+ 
 }
+.search__input{
+  padding: 0px 5px 0px 5px;
+  border-color: #ECF54D;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+
+
+}
+.search__btn{
+  padding: 5px 5px 0px ;
+  font-size: 15pxpx;
+
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none; 
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+
+@media (max-width: 800px) {
+    .header_content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .logo__img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    /* .header__derecha{
+      width: 100%;
+      padding: 10px; 
+      display: none ;
+    } */
+  
+    .navegacion__list {
+      flex-direction: column;
+      display: block;
+
+      width: 100%;
+    }
+  
+    .navegacion__item {
+      width: 100%;
+      text-align: left;
+    }
+  
+    .menu__btn {
+      font-size: 30px;
+      display: inline-block;
+      /* visibility: inherit; */
+    }
+  
+    .menu__content {
+      position: static;
+    }
+  }
+  
+  /* Tablets (<= 1024px) */
+  @media (max-width: 1024px) {
+    .header_content {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  
+    .navegacion__list {
+      flex-direction: row;
+    }
+  
+    .navegacion__link {
+      padding: 8px 12px;
+    }
+  }
+  
+  /* Larger screens (>= 1025px) */
+  @media (min-width: 1025px) {
+    .header_content {
+      padding: 20px;
+    }
+  
+    .navegacion__list {
+      flex-direction: row;
+    }
+  
+    .navegacion__link {
+      padding: 12px 20px;
+    }
+  }
