@@ -17,18 +17,48 @@
 
 header{
   grid-area: header;
+  background-color: #000;
+}
+
+header h1{
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
 
 main{
   grid-area: main;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 aside{
   grid-area: sidebar;
+  background-color: red;
+}
+
+aside h1{
+  text-align: center;
+  padding: 20px;
 }
 
 ul{
   display: flex;
   gap: 30px;
   list-style: none;
+}
+
+
+@media (max-width: 800px) {
+  .container{
+    grid-template-areas: 
+      "header header"
+      "main main";
+  }
+
+  aside{
+    display: none;
+  }
 }

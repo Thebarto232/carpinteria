@@ -14,59 +14,149 @@ body {
   line-height: 1.6; /* Aumenta el espacio entre líneas para mejorar la legibilidad */
    overflow-x: hidden; /*Desaparece la barra espaciadora de la parte Horizontal*/
 }
-.header{
-  display: block; /* Cambia el display a bloque para ocupar todo el ancho disponible */
+.container_layaout{
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 120px 1fr;
+  grid-template-areas: 
+    "sidebar header"
+    "sidebar main";
 }
+
+header{
+  grid-area: header;
+
+}
+
+main{
+  grid-area: main;
+}
+
+aside{
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
 .logo__img{
-    width: 50px;
-    margin-right: 15px;
-    margin-left: 15px;
-    border-radius: 50px;
-    display: block;
+ display: flex;
+  width: 50px;
+  border-radius: 50%;
 
 }
 .header_content{
-  display: flex; /* Utiliza flexbox para alinear los elementos dentro del contenedor */
-  justify-content: space-between; /* Espacia los elementos de manera uniforme entre el inicio y el final del contenedor */
-  align-items: center; /* Alinea verticalmente los elementos al centro */
-  padding: 15px; /* Añade un padding de 10px alrededor del contenido */
-  background-color: #386491; /* Color de fondo claro para el encabezado */
+display: flex;
+width: 100%;
+height: 100%;
+align-items: center;
+justify-content: center;
+padding: 10px;
+
+
 }
-.header__derecha{
-  display: flex; /* Utiliza flexbox para alinear los elementos dentro del contenedor */
-  align-items: center;  /* Alinea verticalmente los elementos al centro */
-  margin: 0 20px; /* Añade un margen de 0 arriba y abajo, y 20px a los lados */
+ .header__derecha{
+
+ display: flex;
   width: 100%;
-  padding: 10px; /* Añade un padding de 10px alrededor del contenido */
-  background-color: #386491; /* Color de fondo claro para el encabezado */
-  text-decoration: none /* Remueve el subrayado de los enlaces */;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  
 
 }
-.navegacion__list{
-   display: flex; /* Organiza la lista de navegación en una fila */
-  align-items: center; /* Centra verticalmente los elementos de la lista */
-  list-style: none; /* Quita los puntos de la lista */
-  padding: 0; /* Quita el padding de la lista */
+/* 
+display: flex
+;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center; */
+ .navegacion__list{
+display: flex;
+gap: 6px;
+list-style: none;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+width: 100%;
 
-}
+} 
 .navegacion__link{
-  display: flex; /* Cambia el display a bloque para ocupar todo el ancho disponible */
-  align-items: center; /* Centra verticalmente los elementos de la lista */
-  text-decoration: none; /* Remueve el subrayado de los enlaces */
-  color: #fff; /* Color del texto blanco para los enlaces */
-  padding: 10px 15px; /* Añade un padding de 10px arriba y abajo, y 15px a los lados */
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+padding: 10px; /* Añade un padding de 10px alrededor del contenido */
+border-radius: 5px; /* Bordes redondeados para los enlaces */
+color: #386491; /* Color del texto claro para los enlaces */
+text-decoration: none; /* Remueve el subrayado de los enlaces */
+font-size: 15px; /* Tamaño de fuente para los enlaces */
+text-align: center;
+margin: 5px 0; /* Añade un margen de 5px arriba y abajo, y 0 a los lados */
+
+}
+.navegacion__link:hover{
+
+  background-color: #2c3e50; /* Cambia el color de fondo al pasar el ratón por encima */
+  color: #fff; /* Cambia el color del texto a blanco al pasar el ratón por encima */
   border-radius: 5px; /* Bordes redondeados para los enlaces */
   transition: background-color 0.3s; /* Añade una transición suave al color de fondo */
 }
-.navegacion__link:hover{
-  background-color: #2c3e50; /* Cambia el color de fondo al pasar el ratón por encima */
-  color: #fff; /* Cambia el color del texto a blanco al pasar el ratón por encima */
+
+.navegacion__item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 5px;
+  
 }
 .navegacion{
-display: flex; /* Organiza los elementos de la navegación en línea */
-  align-items: center; /* Centra los elementos verticalmente */
-  gap: 20px; /* Añade un espacio de 20px entre los elementos de la navegación */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+  /* grid-area: sidebar; */
+  width: 100%;
+  padding: 5px;
+  overflow: hidden;
+  transition: all 1s ease;
 }
+/* -------------------search----------------------- */
+.serach_content{
+display: flex;
+width: 100%;
+height: 100%;
+justify-content: center;
+align-items: center;
+
+}
+
+.search__input{
+  display: flex;
+ width: 200px;
+ height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #a74949;
+  
+}
+.search__btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+
+}
+
+
+
 /* -------------------menu----------------------- */
 .menu {
     position: relative;
@@ -80,8 +170,6 @@ display: flex; /* Organiza los elementos de la navegación en línea */
     text-align: center;
     font-size: 15px; /* Tamaño de fuente para el menú */
     transition: background-color 0.3s; /* Añade una transición suave al color de fondo */
-
-    
 }
 
 .menu__btn {
@@ -89,7 +177,9 @@ display: flex; /* Organiza los elementos de la navegación en línea */
     font-size: 24px;
     display: inline-block;
     padding: 10px;
-    display: none; 
+    /* display: none;  */
+    color: #fff;
+    margin-top: 30px;
 
 }
 
@@ -107,7 +197,7 @@ display: flex; /* Organiza los elementos de la navegación en línea */
     display: none;
 }
 
-.menu__toggle:checked + .menu__btn + .menu__content {
+/* .menu__toggle:checked + .menu__btn + .menu__content {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -119,7 +209,16 @@ display: flex; /* Organiza los elementos de la navegación en línea */
     background-color: #fff;
     padding: 10px;
     transition: all 0.3s ease;
+} */
+
+.menu__toggle:checked ~ .navegacion{
+  width: 0;
+  overflow: hidden;
+  transition: all 1s ease;
+  padding: 0;
+  /* display: none; */
 }
+
 .menu__item{
    display: flex;
     align-items: center;
@@ -649,7 +748,8 @@ footer a:hover {
 
 /* Main Content */
 .main-content {
-  margin-left: 220px;
+  /* margin-left: 220px; */
+  margin: 0 30px;
   padding: 20px;
 }
 
@@ -658,9 +758,9 @@ footer a:hover {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  align-items: center;
+  /* align-items: center; */
   gap: 20px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   margin: 0 auto;
   max-width: 800px;
   padding: 10px;
@@ -676,8 +776,9 @@ footer a:hover {
   transition: all 0.3s ease;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-
-
+  width: 100%;
+  max-width: 300px;
+  min-width: 80px;
 }
 .search__btn{
   padding: 5px 5px 0px ;
@@ -695,30 +796,81 @@ footer a:hover {
 
 @media (max-width: 800px) {
     .header_content {
+      display: grid;
       flex-direction: column;
-      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      height: 100vh; 
+      margin: 0 auto;
     }
+/* 
+    .container_layaout{
+      grid-template-areas: 
+        "header header"
+        "main main";
+    } */
   
     .logo__img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+
       width: 80px;
       margin-bottom: 10px;
+
+  
     }
-    /* .header__derecha{
+    /* .container_layaout{
+      display: flex;
+      flex-direction: column;
       width: 100%;
-      padding: 10px; 
-      display: none ;
+      height: 100vh;
+      grid-template-columns: 1fr;
+      grid-template-rows: 120px 1fr;
+      grid-template-areas: 
+        "sidebar"
+        "main";
     } */
+    .header__derecha{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+    .serach_content{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .header__derecha{
+     display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 10px;
+      justify-content: space-between;
+      align-items: center;
+    } 
   
     .navegacion__list {
       flex-direction: column;
       display: block;
+      
 
       width: 100%;
     }
   
     .navegacion__item {
-      width: 100%;
-      text-align: left;
+      grid-area: area;
+  display: flex; /* O también grid si prefieres */
+  flex-wrap: wrap; /* Para que los ítems se ajusten si es necesario */
+  justify-content: center; /* Alineación en el centro */
+  align-items: center; /* Centrado vertical */
     }
   
     .menu__btn {
@@ -731,34 +883,12 @@ footer a:hover {
       position: static;
     }
   }
-  
-  /* Tablets (<= 1024px) */
-  @media (max-width: 1024px) {
-    .header_content {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  
-    .navegacion__list {
-      flex-direction: row;
-    }
-  
-    .navegacion__link {
-      padding: 8px 12px;
+
+  @media (max-width: 1350px) {
+    .search__input{
+      display: none;
+      /* width: 100%;
+      max-width: 300px; */
     }
   }
   
-  /* Larger screens (>= 1025px) */
-  @media (min-width: 1025px) {
-    .header_content {
-      padding: 20px;
-    }
-  
-    .navegacion__list {
-      flex-direction: row;
-    }
-  
-    .navegacion__link {
-      padding: 12px 20px;
-    }
-  }
