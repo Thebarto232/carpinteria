@@ -70,18 +70,17 @@ display: flex;
 width: 100%;
 height: 100%;
 align-items: center;
-justify-content: center;
-padding: 10px;
+justify-content: space-between;
+/* padding: 70px; */
 }
  .header__derecha{
 
 display: flex;
-width: 100%;
+width: max-content;
 justify-content: center;
-gap: 10px;
 align-items: center;
-margin: 20px;
-margin-left:70%;
+/* margin: 20px; */
+/* margin-left:70%; */
 
 
 }
@@ -105,8 +104,6 @@ margin-left:70%;
 }
 
 /* -------------botonn_registro */
-
-
 .navegacion__links{
   background-color: #3498db;  
   color: white; 
@@ -120,49 +117,58 @@ margin-left:70%;
   letter-spacing: 1px; 
   text-decoration: none;
 
+
 }
-
-
 /* registro de roles*/
 .auth {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  width: max-content;
+  justify-content: center;
+  align-items: center;
+  margin: 7px;
+ 
 }
 
 .auth__btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.auth__btn--login {
-    background-color: #28a745;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
 }
 
 .auth__menu {
     position: relative;
+    display: inline-block;
+    width:150px; 
+    text-align: center;
 }
 
 .auth__dropdown {
     display: none;
     position: absolute;
-    top: 45px;
-    left: 0;
     background-color: white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     min-width: 160px;
 }
 
 .auth__item {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #386491; /* Color del texto claro para los enlaces */
+  text-decoration: none; /* Remueve el subrayado de los enlaces */
+  font-size: 15px; /* Tamaño de fuente para los enlaces */
+  text-align: center;
+  margin: 5px 0; /* Añade un margen de 5px arriba y abajo, y 0 a los lados */
+ 
+
+  
 }
 
 .auth__item:hover {
@@ -171,34 +177,34 @@ margin-left:70%;
 
 /* 🔹 Mostrar el menú al hacer clic en "Registro" */
 .auth__menu:focus-within .auth__dropdown {
-    display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+  background-color: #f9f9f9; /* Color de fondo del menú desplegable */
+  border-radius: 5px; /* Bordes redondeados para el menú desplegable */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para efecto elevado */
 }
 
-.auth__btn--login{
-  padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-
+.auth__link{
+  text-decoration: none; /* Remueve el subrayado de los enlaces */
+  color: #fff; /* Color del texto blanco para los enlaces */
+  font-size: 16px; /* Tamaño de fuente para los enlaces */
+  padding: 10px 20px; /* Espaciado interno para los enlaces */
+  border-radius: 5px; /* Bordes redondeados para los enlaces */
+  transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
 }
 
 .content_login{
   text-decoration: none;
-  color: #0056b3;
+ 
 }
-
-
-
 .registroBtn{
   all: unset;
 }
-
-
-
-
-
 
  .navegacion__list{
 display: flex;
@@ -222,11 +228,15 @@ text-decoration: none; /* Remueve el subrayado de los enlaces */
 font-size: 15px; /* Tamaño de fuente para los enlaces */
 text-align: center;
 margin: 5px 0; /* Añade un margen de 5px arriba y abajo, y 0 a los lados */
+}
+.navegacion__link{
 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil alrededor de los enlaces */
+  cursor: pointer; /* Cambia el cursor a puntero al pasar por encima */
+  
 }
 .navegacion__link:hover{
-
-  background-color: #2c3e50; 
+  background-color: black;
   color: #fff; 
   border-radius: 5px; 
   transition: background-color 0.3s; 
@@ -267,7 +277,7 @@ align-items: center;
  height: 30px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #a74949;
+ 
   
 }
 .search__btn{
@@ -320,19 +330,7 @@ align-items: center;
     display: none;
 }
 
-/* .menu__toggle:checked + .menu__btn + .menu__content {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 1;
-    margin-top: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-    padding: 10px;
-    transition: all 0.3s ease;
-} */
+
 
 .menu__toggle:checked ~ .navegacion{
   width: 0;
@@ -850,22 +848,30 @@ display: flex;
 
 
 .carousel {
-  position: relative;
-  width: 80%; /* Más adaptabilidad */
-  max-width: 800px; /* Limita el ancho para que no se vea demasiado expandido */
-  height: 350px; /* Definimos una altura adecuada */
-  overflow: hidden; /* Oculta el contenido que se desborda */
-  border-radius: 15px; /* Bordes más suaves */
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más elegante */
-  margin: auto;
+overflow: hidden; 
+  width: 100%; 
+  position: relative; 
+  margin: 20px auto; 
+  max-width: 1200px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  height: 300px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  background-color: #f4f4f4; 
+  border: 1px solid #ccc; 
+  padding: 20px; 
+  box-sizing: border-box; 
+  
 }
 
-.carousel__inner {
-  display: flex;
-  width: calc(100% * 4);
-  animation: carousel-animation 12s infinite ease-in-out;
+  .carousel__inner {
+    display: flex;
+  width: calc(100% * 4); /* Ajusta el ancho total */
+  animation: carousel-animation 20s infinite ease-in-out;
 
-}
+  }
 
 .carousel__item {
   width: 33.3333%;
@@ -887,25 +893,15 @@ display: flex;
 }
 
 
+
 @keyframes carousel-animation {
-  0% { transform: translateX(0); }      /* Primera imagen */
-  20% { transform: translateX(0); }     /* Mantiene la primera imagen */
-
-  25% { transform: translateX(-100%); } /* Segunda imagen */
-  45% { transform: translateX(-100%); } /* Mantiene la segunda imagen */
-
-  50% { transform: translateX(-200%); } /* Tercera imagen */
-  70% { transform: translateX(-200%); } /* Mantiene la tercera imagen */
-
-  75% { transform: translateX(-300%); } /* Cuarta imagen */
-  100% { transform: translateX(-300%); } /* Mantiene la cuarta imagen */
-
-  100% { transform: translateX(-400%); } /* Cuarta imagen */
-  125% { transform: translateX(-400%); } /* Mantiene la cuarta imagen */
-
-  125% { transform: translateX(-500%); } /* Cuarta imagen */
-  150% { transform: translateX(-400%); } /* Mantiene la cuarta imagen */
+  0%, 30% { transform: translateX(0); }      /* Primeras 3 imágenes visibles */
+  35%, 65% { transform: translateX(-100%); } /* Últimas 3 imágenes visibles */
+  70%, 100% { transform: translateX(-200%); } 
+  100% { transform: translateX(0); }
 }
+
+
 
 
 .card-content {
@@ -956,16 +952,14 @@ display: flex;
 
 .serach_content{
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  /* align-items: center; */
-  gap: 20px;
-  /* flex-wrap: wrap; */
-  margin: 0 auto;
-  max-width: 800px;
+  justify-content: center;
+  /* width: 100%; */
+  width: max-content;
+  height: 100%;
+  gap: 10px;
+  margin: 20px;
   padding: 10px;
-  border-radius: 5px;
  
 }
 .search__input{
@@ -977,13 +971,12 @@ display: flex;
   transition: all 0.3s ease;
   outline: none;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-  width: 100%;
   max-width: 300px;
-  min-width: 80px;
+  min-width: 100px;
 }
 .search__btn{
-  padding: 5px 5px 0px ;
-  font-size: 15pxpx;
+  /* padding: 5px 5px 0px ; */
+  font-size: 15px;
 
   background-color: #ffffff;
   color: rgb(0, 0, 0);

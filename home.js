@@ -1,5 +1,16 @@
+/**redirecion de de cliente o provedores  */
 function redirigirRegistro() {
-  let tipo = document.getElementById("tipoUsuario").value;
-  let url = tipo === "cliente" ? "registro_clientes.html" : "registro_provedores.html";
-  window.location.href = url;
+
+  const link = document.querySelector(".form__link");
+
+  link.addEventListener("click", () => {
+    const tipoUsuario = document.querySelector("#tipoUsuario"); 
+
+    if (tipoUsuario.value === "Cliente") {
+      window.location.href = "registro_clientes.html";
+    } else if (tipoUsuario.value === "Proveedor") {
+      window.location.href = "registro_provedores.html";
+    }
+  })
 }
+redirigirRegistro();
