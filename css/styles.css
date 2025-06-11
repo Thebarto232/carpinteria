@@ -813,9 +813,7 @@ display: flex;
   justify-content: center; /* Centra las cards */
   gap: 25px; /* Espaciado entre las cards */
   max-width: 1200px; /* Ancho máximo del contenedor */
-  background-color: #f4f4f4; /* Color de fondo del contenedor */
   border-radius: 10px; /* Bordes redondeados para el contenedor */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para efecto elevado */
   padding: 20px; /* Espacio alrededor del contenedor */
   margin: 0 auto; /* Centra el contenedor en la página */
   width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */

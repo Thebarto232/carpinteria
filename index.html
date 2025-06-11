@@ -5,14 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema de Carpintería</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../css/cliente.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 
 </head>
 
@@ -23,24 +20,8 @@
     <header>
       <div class="header_content">
 
-        <img src="./img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
+        <img src="../img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
         <div class="header__derecha">
-          <div class="auth">
-            <button class="auth__btn auth__btn--login">
-              <div class="content_login">
-                <a href="./interfaz/login.html" class="auth__link">Login</a>
-              </div>
-            </button>
-
-            <div class="auth__menu">
-              <button class="auth__btn auth__btn--register">Registro</button>
-              <div class="auth__dropdown">
-                <a href="./interfaz/registro_clientes.html" class="auth__item">Registrar Cliente</a>
-                <a href="./interfaz/registro_provedores.html" class="auth__item">Registrar Proveedor</a>
-              </div>
-            </div>
-          </div>
-
           <div class="serach_content">
             <input type="text" class="search__input" placeholder="Buscar...">
             <button class="search__btn"><i class='bx bx-search'></i>
@@ -53,97 +34,61 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <input type="checkbox" id="menu__toggle" class="menu__toggle">
-      <label for="menu__toggle" class="menu__btn"><i class="fas fa-bars"></i>
-      </label>
-
+      <label for="menu__toggle" class="menu__btn"><i class="fas fa-bars"></i></label>
       <nav class="navegacion">
         <ul class="navegacion__list">
-          <li class="navegacion__item"><a href="./interfaz/productos.html" class="navegacion__link">Productos</a></li>
-          <li class="navegacion__item"><a href="./interfaz/categorias.html" class="navegacion__link">Categorías</a></li>
-          <li class="navegacion__item"><a href="./interfaz/provedores.html" class="navegacion__link">Provedores</a></li>
-          <li class="navegacion__item"><a href="./interfaz/ventas.html" class="navegacion__link">Ventas</a>
-          </li>
+          <li class="navegacion__item"><a href="productos.html" class="navegacion__link">Productos</a></li>
+          <li class="navegacion__item"><a href="categorias.html" class="navegacion__link">Categorías</a></li>
+          <li class="navegacion__item"><a href="provedores.html" class="navegacion__link">Proveedores</a></li>
+          <li class="navegacion__item"><a href="ventas.html" class="navegacion__link">Ventas</a></li>
+
         </ul>
       </nav>
-      </nav>
+
     </aside>
 
     <!-- Main Content -->
     <main>
       <section class="main-content">
-        <!-- <div class="carousel carousel--example">
-          <div class="carousel__inner">
-            <div class="carousel__item carousel__item--active">
-              <div class="carousel__image-container">
-                <img src="./img/manso.jpg" class="carousel__image" alt="Imagen Manso">
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__image-container">
-                <img src="./img/tabla.jpeg" class="carousel__image" alt="Imagen Tabla">
-              </div>
-            </div>
-            <div class="carousel__item">
-              <div class="carousel__image-container">
-                <img src="./img/manso.jpg" class="carousel__image" alt="Imagen Manso">
-              </div>
-            </div>
-          </div>
-          <button class="carousel__control carousel__control--prev" type="button" data-bs-target=".carousel--example"
-            data-bs-slide="prev">
-            <span class="carousel__icon carousel__icon--prev" aria-hidden="true"></span>
-            <span class="carousel__text">Anterior</span>
-          </button>
-          <button class="carousel__control carousel__control--next" type="button" data-bs-target=".carousel--example"
-            data-bs-slide="next">
-            <span class="carousel__icon carousel__icon--next" aria-hidden="true"></span>
-            <span class="carousel__text">Siguiente</span>
-          </button>
-        </div> -->
-
 
         <!-- Cards para productos destacados -->
-        <div class="carousel">
-          <div class="carousel__inner">
-            <div class="carousel__item carousel__item--first">
-              <img class="carousel__image" src="./img/mad1.png" alt="Imagen 1">
+        <div class="productos">
+          <p class="title_productos">
+            productos
+          </p>
+        </div>
+        <div class="cards-container">
+          <div class="card">
+            <img src="./img/mad1.png" alt="Producto 1">
+            <div class="card-content">
+              <h3>Producto 1</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <button>Ver más</button>
             </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/mad1.png" alt="Imagen 2">
+          </div>
+          <div class="card">
+            <img src="../img/mad1.png" alt="Producto 2">
+            <div class="card-content">
+              <h3>Producto 2</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <button>Ver más</button>
             </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/tabla.jpeg" alt="Imagen 3">
+          </div>
+          <div class="card">
+            <img src="../img/mad1.png" alt="Producto 3">
+            <div class="card-content">
+              <h3>Producto 3</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <button>Ver más</button>
             </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/fondo-tbla.jpeg" alt="Imagen 4">
-            </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/manso.jpg" alt="Imagen 5">
-            </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/mad1.png" alt="Imagen 6">
-            </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/mad1.png" alt="Imagen 6">
-            </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/mad1.png" alt="Imagen 6">
-            </div>
-            <div class="carousel__item">
-              <img class="carousel__image" src="./img/mad1.png" alt="Imagen 6">
-            </div>
-
           </div>
         </div>
-
-
-        /**xddddd/
 
         <!-- Cards para categorías -->
         <h2>Categorías más populares</h2>
         <div class="cards-container">
           <div class="card">
-            <img src="./img/mad1.png" alt="Categoría 1">
+            <img src="#" alt="Categoría 1">
             <div class="card-content">
               <h3>Categoría 1</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -151,7 +96,7 @@
             </div>
           </div>
           <div class="card">
-            <img src="./img/manso.jpg" alt="Categoría 2">
+            <img src="#" alt="Categoría 2">
             <div class="card-content">
               <h3>Categoría 2</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -159,7 +104,7 @@
             </div>
           </div>
           <div class="card">
-            <img src="./img/tabla.jpeg" alt="Categoría 3">
+            <img src="#" alt="Categoría 3">
             <div class="card-content">
               <h3>Categoría 3</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -172,7 +117,7 @@
         <h2>Clientes más recientes</h2>
         <div class="cards-container">
           <div class="card">
-            <img src="./carpinteria/img/tabla.jpeg  " alt="Cliente 1">
+            <img src="https://via.placeholder.com/300" alt="Cliente 1">
             <div class="card-content">
               <h3>Cliente 1</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -198,14 +143,10 @@
         </div>
 
         <!-- Cards para proveedores -->
-        <div class="provedores">
-          <p class="title_provedores">
-            productos
-          </p>
-        </div>
+        <h2>Proveedores</h2>
         <div class="cards-container">
           <div class="card">
-            <img src="./carpinteria/img/mad1.png" alt="Proveedor 1">
+            <img src="https://via.placeholder.com/300" alt="Proveedor 1">
             <div class="card-content">
               <h3>Proveedor 1</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -234,7 +175,6 @@
 
     <!-- Footer -->
     <footer>
-      <!-- <button>Johan</button> -->
       <div class="footer_content">
         <div class="footer__description">
           <div class="foooter__title">
@@ -247,11 +187,9 @@
         </div>
       </div>
     </footer>
-    <script type="module" src="/home.js"></script>
-    <script type="module" src="productos_venta.js"></script>
-    <script type="module" src="historial_ventas.js"></script>
-
+    <script type="module" src="../home.js"></script>
   </div>
+
 </body>
 
 </html>
