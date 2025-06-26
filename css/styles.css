@@ -488,110 +488,88 @@ align-items: center;
   background-color: #f9f9f9;
 }
 
+
+
+/* -------- productos -------- */
+/* styles.css */
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .header__titulo {
   margin: 0;
   font-size: 24px;
 }
 
-/* -------- Cliente -------- */
-.cliente {
-  padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
+.productos {
+ display: flex;
+ width: 100%;
+ justify-content: center;
+ align-items: center;
 }
 
-.cliente__form {
+.productos__form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
-.cliente__input {
-  flex: 1 1 30%;
-  padding: 0.5rem;
-  border: 1px solid #aaa;
+.productos__input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.cliente__button {
-  padding: 0.5rem 1rem;
-  border: none;
+.productos__btn {
   background-color: #4CAF50;
   color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.cliente__button--editar {
-  background-color: #2196F3;
+.productos__btn:hover {
+  background-color: #45a049;
 }
 
-.cliente__button--eliminar {
-  background-color: #f44336;
-}
-
-/* -------- Tabla -------- */
-.cliente__tabla {
+.productos__tabla {
   width: 100%;
   border-collapse: collapse;
 }
 
-.cliente__tabla-header,
-.cliente__tabla-dato {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
+.productos__tabla th,
+.productos__tabla td {
+  padding: 12px;
+  border: 1px solid #ddd;
   text-align: left;
 }
 
-.cliente__tabla-fila:nth-child(even) {
-  background-color: #f9f9f9;
+.productos__fila--cabecera {
+  background-color: #f2f2f2;
+  font-weight: bold;
 }
 
-.header {
-  background-color: #333;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-}
-.header__titulo {
-  margin: 0;
-  font-size: 2rem;
-}
 
-.clientes {
-  padding: 2rem;
-}
-.clientes__form {
-  margin-bottom: 2rem;
-}
-.clientes__input {
-  display: block;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  width: 100%;
-  max-width: 400px;
-}
-.clientes__btn {
-  padding: 0.5rem 1rem;
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.clientes__btn:hover {
-  background-color: #125ca1;
-}
-.clientes__tabla {
-  width: 100%;
-  border-collapse: collapse;
-}
-.clientes__columna, .clientes__fila--cabecera th {
-  border: 1px solid #ccc;
-  padding: 0.75rem;
-  text-align: left;
-}
 
+
+.
 /* ------ ventas ---------------- */
 
 .detalle-venta {
