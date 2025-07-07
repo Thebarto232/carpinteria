@@ -11,15 +11,21 @@
 <body>
   <main class="productos" id="form_producto">
     <form class="productos__form" id="formularioProducto">
-      <input id="nombre" class="productos__input" type="text" name="nombre_producto" placeholder="Nombre del producto" required>
-      <input id="valor" class="productos__input" type="number" step="0.01" name="valor_producto" placeholder="Valor ($)" required>
+      <input id="nombre" class="productos__input" type="text" name="nombre_producto" placeholder="Nombre del producto"
+        required>
+      <input id="valor" class="productos__input" type="number" step="0.01" name="valor_producto" placeholder="Valor ($)"
+        required>
       <input id="stock" class="productos__input" type="number" name="stock" placeholder="Stock disponible" required>
+
       <select id="categoria" class="productos__input" name="categoria" required>
         <option value="">-- Categoría --</option>
-        <!-- Aquí puedes llenar las categorías desde JS -->
         <option value="1">Muebles</option>
         <option value="2">Decoración</option>
+        <option value="3">Iluminación</option>
+        <option value="4">Herramientas</option>
+
       </select>
+
       <button class="productos__btn" type="submit">Registrar producto</button>
     </form>
 
@@ -31,12 +37,17 @@
           <th>Valor</th>
           <th>Stock</th>
           <th>Categoría</th>
+          <th>Fecha de creación</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody id="tablaProductos">
         <!-- Aquí se mostrará la lista de productos -->
       </tbody>
     </table>
+    <div class="conten_buton">
+      <button class="productos__btn--paginacion"><a href="../index.html">regresar</a></button>
+    </div>
   </main>
 
   <script src="../js/productos.js"></script>
