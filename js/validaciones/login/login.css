@@ -1,0 +1,12 @@
+@import url(../../../../../css/styles.css);
+.form__error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.color-rojo {
+  border: 1px solid red;
+  outline: none;
+}

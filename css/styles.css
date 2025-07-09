@@ -4,12 +4,9 @@
   padding: 0; /* Remueve el padding predeterminado de todos los elementos */
   box-sizing: border-box; /* Cambia el modelo de caja para que padding y border se incluyan en el tamaño total de los elementos */
 }
-
-
-
   body {
     font-family: Arial, sans-serif;
-  overflow: hidden; /* Oculta el scroll */
+  overflow: hidden; 
   min-height: 100%;
   margin: 0;
   font-size: 14px;
@@ -388,7 +385,7 @@ align-items: center;
 }
 
 .form--login {
-  border-color: #6c757d;
+  border-color: #61b0e5;
 }
 
 /* Elementos internos */
@@ -516,14 +513,6 @@ align-items: center;
 
 
 /* -------- productos -------- */
-
-body {
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 20px;
-}
-
 .header {
   background-color: #4CAF50;
   color: white;

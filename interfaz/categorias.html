@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -8,15 +8,21 @@
 </head>
 
 <body>
-
-
-
   <main class="categoria">
+
+    <h1 class="categoria__titulo">📦 Gestión de Categorías</h1>
+
+    <section class="categoria__busqueda">
+      <input type="text" id="buscarCategoria" class="categoria__input" placeholder="🔍 Buscar categoría..." />
+    </section>
+    
     <form id="formCategoria" class="categoria__form">
       <input type="number" id="idCategoria" class="categoria__input" placeholder="ID categoría" required />
       <input type="text" id="descripcionCategoria" class="categoria__input" placeholder="Nombre de la categoría"
         required />
-      <button type="submit" class="categoria__btn">Guardar</button>
+      <button type="submit" class="categoria__btn">💾 Guardar</button>
+      <button type="button" id="cancelarEdicion" class="categoria__btn categoria__btn--cancelar" hidden>❌
+        Cancelar</button>
     </form>
 
     <table id="tablaCategorias" class="categoria__tabla">
@@ -24,16 +30,17 @@
         <tr class="categoria__fila categoria__fila--cabecera">
           <th class="categoria__columna">ID</th>
           <th class="categoria__columna">Descripción</th>
+          <th class="categoria__columna">Productos Asociados</th>
           <th class="categoria__columna">Acciones</th>
         </tr>
       </thead>
       <tbody class="categoria__body">
-        <!-- Filas de categorías aquí -->
+        <!-- Filas dinámicas -->
       </tbody>
     </table>
+
   </main>
   <script src="../js/categorias.js"></script>
-
 </body>
 
 </html>

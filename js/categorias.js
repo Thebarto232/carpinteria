@@ -1,50 +1,93 @@
-document.addEventListener("DOMContentLoaded", cargarCategorias);
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCategorias();
+
+  const buscarInput = document.querySelector("#buscarCategoria");
+  buscarInput.addEventListener("input", filtrarCategorias);
+});
+
+let categoriasGlobal = [];
+let modoEdicion = false;
 
 const form = document.querySelector("#formCategoria");
+const cancelarBtn = document.querySelector("#cancelarEdicion");
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const id = document.querySelector("#idCategoria").value;
+
+  const id = parseInt(document.querySelector("#idCategoria").value);
   const descripcion = document.querySelector("#descripcionCategoria").value;
 
-  fetch("http://localhost:8080/pruebaApi/api/categorias", {
-    method: "POST",
+  const categoria = {
+    id_categoria_producto: id,
+    descripcion_producto: descripcion
+  };
+
+  const url = "http://localhost:8080/pruebaApi/api/categorias";
+  const metodo = modoEdicion ? "PUT" : "POST";
+
+  fetch(url, {
+    method: metodo,
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      id_categoria_producto: parseInt(id),
-      descripcion_producto: descripcion
-    })
+    body: JSON.stringify(categoria)
   })
     .then((res) => {
       if (!res.ok) throw new Error("No se pudo guardar");
       return res.text();
     })
     .then(() => {
-      alert("✅ Categoría guardada");
+      alert(modoEdicion ? "✏️ Categoría actualizada" : "✅ Categoría guardada");
       form.reset();
+      cancelarBtn.hidden = true;
+      modoEdicion = false;
       cargarCategorias();
     })
     .catch((err) => {
-      console.error("Error:", err);
+      console.error("Error al guardar:", err);
     });
+});
+
+cancelarBtn.addEventListener("click", () => {
+  form.reset();
+  cancelarBtn.hidden = true;
+  modoEdicion = false;
 });
 
 function cargarCategorias() {
   fetch("http://localhost:8080/pruebaApi/api/categorias")
     .then((res) => res.json())
     .then((categorias) => {
-      const tbody = document.querySelector("#tablaCategorias tbody");
-      tbody.innerHTML = "";
-      categorias.forEach((c) => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td>${c.id_categoria_producto}</td>
-          <td>${c.descripcion_producto}</td>
-          <td>
-            <button class="boton_eliminar" onclick="eliminarCategoria(${c.id_categoria_producto})">🗑️ Eliminar</button>
-          </td>`;
-        tbody.appendChild(fila);
-      });
-    });
+      categoriasGlobal = categorias;
+      renderizarCategorias(categoriasGlobal);
+    })
+    .catch((err) => console.error("Error al cargar categorías:", err));
+}
+
+function renderizarCategorias(lista) {
+  const tbody = document.querySelector("#tablaCategorias tbody");
+  tbody.innerHTML = "";
+
+  lista.forEach((c) => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${c.id_categoria_producto}</td>
+      <td>${c.descripcion_producto}</td>
+      <td>${c.total_productos ?? "—"}</td>
+      <td>
+        <button onclick="editarCategoria(${c.id_categoria_producto})">✏️ Editar</button>
+        <button onclick="eliminarCategoria(${c.id_categoria_producto})">🗑️ Eliminar</button>
+      </td>`;
+    tbody.appendChild(fila);
+  });
+}
+
+function editarCategoria(id) {
+  const categoria = categoriasGlobal.find((c) => c.id_categoria_producto === id);
+  if (!categoria) return;
+
+  document.querySelector("#idCategoria").value = categoria.id_categoria_producto;
+  document.querySelector("#descripcionCategoria").value = categoria.descripcion_producto;
+  modoEdicion = true;
+  cancelarBtn.hidden = false;
 }
 
 function eliminarCategoria(id) {
@@ -59,6 +102,14 @@ function eliminarCategoria(id) {
       cargarCategorias();
     })
     .catch((err) => {
-      console.error("Error:", err);
+      console.error("Error al eliminar categoría:", err);
     });
+}
+
+function filtrarCategorias(e) {
+  const filtro = e.target.value.toLowerCase();
+  const filtradas = categoriasGlobal.filter((c) =>
+    c.descripcion_producto.toLowerCase().includes(filtro)
+  );
+  renderizarCategorias(filtradas);
 }

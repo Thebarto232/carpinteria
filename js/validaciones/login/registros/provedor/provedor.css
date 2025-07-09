@@ -1,0 +1,23 @@
+@import url(../../../../../css/styles.css);
+
+
+
+.serach_content{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px;
+} 
+
+.form__error {
+  color: red;
+  font-size: 0.9rem;
+  display: block;
+  margin-top: 5px;
+}
+
+.color-rojo {
+  border: 1px solid red;
+}

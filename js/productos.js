@@ -6,7 +6,6 @@ let productoEditandoId = null;
 
 btn.addEventListener("click", (e) => {
   e.preventDefault(); // Previene recarga del formulario
-
   const nombre = document.querySelector("#nombre").value.trim();
   const valor = parseFloat(document.querySelector("#valor").value);
   const stock = parseInt(document.querySelector("#stock").value);
