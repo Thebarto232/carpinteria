@@ -2,39 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Usuarios</title>
+  <title>Lista de Usuarios</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <header class="header">
-    <h1 class="header__titulo">Gestión de Usuarios</h1>
-  </header>
-
-  <main class="usuarios">
-    <form class="usuarios__form">
-      <input class="usuarios__input" type="text" placeholder="Nombre de usuario">
-      <input class="usuarios__input" type="email" placeholder="Correo">
-      <input class="usuarios__input" type="password" placeholder="Contraseña">
-      <select class="usuarios__select">
-        <option value="admin">Administrador</option>
-        <option value="empleado">Empleado</option>
-      </select>
-      <button class="usuarios__btn" type="submit">Registrar</button>
-    </form>
-
-    <table class="usuarios__tabla">
-      <thead>
-        <tr class="usuarios__fila--cabecera">
-          <th class="usuarios__columna">Nombre</th>
-          <th class="usuarios__columna">Correo</th>
-          <th class="usuarios__columna">Tipo de usuario</th>
-          <th class="usuarios__columna">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- usuarios -->
-      </tbody>
-    </table>
+  <main class="usuario">
+    <h1 class="usuario__titulo">👥 Lista de Usuarios</h1>
+    <section class="usuario__lista">
+      <table class="usuario__tabla">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Estado</th>
+            <th>Rol</th>
+            <th>Fecha Registro</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-usuarios">
+          <!-- JS insertará los usuarios aquí -->
+        </tbody>
+      </table>
+    </section>
   </main>
+
+  <script src="../js/usuarios.js"></script>
 </body>
 </html>

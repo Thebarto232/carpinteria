@@ -1034,6 +1034,73 @@ overflow: hidden;
   transition: background-color 0.3s ease;
 }
 
+/* usuarios stilos */
+.usuario {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.usuario__titulo {
+  font-size: 32px;
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 30px;
+}
+
+.usuario__lista {
+  overflow-x: auto;
+}
+
+.usuario__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.usuario__tabla thead {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.usuario__tabla th,
+.usuario__tabla td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.usuario__tabla th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.usuario__tabla tr:nth-child(even) {
+  background-color: #f3f4f6;
+}
+
+.usuario__tabla tr:hover {
+  background-color: #e0f2fe;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.usuario__tabla td {
+  color: #374151;
+}
+
+.usuario__tabla td:first-child {
+  font-weight: bold;
+  color: #111827;
+}
+
+
 
 
 /* Ajustes para pantallas medianas */

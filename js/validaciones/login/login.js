@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const correo = document.querySelector('[placeholder="Correo electrónico"]');
   const contrasena = document.querySelector('[placeholder="Contraseña"]');
   const tipoUsuario = document.getElementById("tipoUsuario");
-  const boton = document.querySelector(".form__btn");
 
-  // Agrega mensaje de error
   const agregarError = (input, mensaje) => {
     limpiarError(input);
     const span = document.createElement("span");
@@ -16,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
   };
 
-  // Limpia errores visuales
   const limpiarError = (input) => {
     input.classList.remove("color-rojo");
     if (input.nextElementSibling && input.nextElementSibling.tagName === "SPAN") {
@@ -24,8 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Validación del formulario
-  const validar = (e) => {
+  formulario.addEventListener("submit", async (e) => {
     e.preventDefault();
     let valido = true;
 
@@ -34,9 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const tipoUsuarioVal = tipoUsuario.value;
 
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexContrasena = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const regexContrasena = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/;
 
-    if (!regexCorreo.test(correoVal)) {
+    [correo, contrasena, tipoUsuario].forEach(input => limpiarError(input));
+
+    if (!regexCorreo.test(correoVal)) { 
       agregarError(correo, "Correo electrónico inválido.");
       valido = false;
     }
@@ -46,20 +44,48 @@ document.addEventListener("DOMContentLoaded", () => {
       valido = false;
     }
 
-    if (tipoUsuarioVal !== "cliente" && tipoUsuarioVal !== "proveedor") {
+    if (!["cliente", "proveedor"].includes(tipoUsuarioVal)) {
       agregarError(tipoUsuario, "Seleccione un tipo de usuario válido.");
       valido = false;
     }
 
-    if (valido) {
-      alert("Inicio de sesión exitoso.");
-      formulario.reset();
-      [correo, contrasena, tipoUsuario].forEach(input => limpiarError(input));
-    }
-  };
+    if (!valido) return;
 
-  // Eventos
-  formulario.addEventListener("submit", validar);
+    //  Petición al backend
+    try {
+      const res = await fetch("http://localhost:8080/pruebaApi/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          correo: correoVal,
+          contrasena: contrasenaVal
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Inicio de sesión exitoso
+        alert("Bienvenido, " + data.nombre_usuario);
+        formulario.reset();
+
+        // Puedes redirigir según tipo de usuario o rol
+        if (data.fk_id_rol === 1) {
+          window.location.href = "/interfaz/provedor.html";
+        } else {
+          window.location.href = "../../../index.html";
+        }
+      } else {
+        alert(data.mensaje || "Credenciales incorrectas.");
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Ocurrió un error al conectar con el servidor.");
+    }
+  });
+
   [correo, contrasena].forEach(input =>
     input.addEventListener("input", () => limpiarError(input))
   );
