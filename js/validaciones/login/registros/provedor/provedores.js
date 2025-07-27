@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const formulario = document.querySelector(".form--proveedor");
-  const nombre = document.querySelector('[placeholder="Nombre del proveedor"]');
-  const correo = document.querySelector('[placeholder="Correo electrónico"]');
-  const telefono = document.querySelector('[placeholder="Teléfono"]');
-  const contrasena = document.querySelector('[placeholder="Contraseña"]');
+  const nombre = document.getElementById("nombre");
+  const correo = document.getElementById("correo");
+  const telefono = document.getElementById("telefono");
+  const contrasena = document.getElementById("contrasena");
   const boton = document.querySelector(".form__btn");
-  const politica = document.querySelector("#politica");
-  // Agregar mensaje de error
+
   const agregarError = (input, mensaje) => {
     limpiarError(input);
     const span = document.createElement("span");
@@ -16,15 +15,15 @@ document.addEventListener("DOMContentLoaded", () => {
     input.insertAdjacentElement("afterend", span);
     input.focus();
   };
-  // Limpiar error visual
+
   const limpiarError = (input) => {
     input.classList.remove("color-rojo");
-    if (input.nextElementSibling && input.nextElementSibling.tagName === "SPAN") {
+    if (input.nextElementSibling?.tagName === "SPAN") {
       input.nextElementSibling.remove();
     }
   };
-  // Validar campos
-  const validar = (e) => {
+
+  const validar = async (e) => {
     e.preventDefault();
     let valido = true;
 
@@ -59,43 +58,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (valido) {
-      alert("Proveedor registrado correctamente.");
-      formulario.reset();
-      [nombre, correo, telefono, contrasena].forEach(input => limpiarError(input));
-      boton.setAttribute("disabled", "true");
+      try {
+        const res = await fetch("http://localhost:8080/pruebaApi/api/registro", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nombre_usuario: nombreVal,
+            correo: correoVal,
+            telefono: telefonoVal,
+            contrasena: contrasenaVal,
+            fk_id_rol: 1 // Rol 1 = Proveedor/Admin
+          })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(data.mensaje || "Proveedor registrado con éxito.");
+          formulario.reset();
+          [nombre, correo, telefono, contrasena].forEach(input => limpiarError(input));
+        } else {
+          alert(data.error || "Error al registrar el proveedor.");
+        }
+      } catch (error) {
+        console.error("Error al conectar con el backend:", error);
+        alert("No se pudo conectar con el servidor.");
+      }
     }
   };
 
-  // Letras únicamente
   const soloLetras = (event) => {
     if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/.test(event.key)) {
       event.preventDefault();
     }
   };
 
-  // Solo números y máximo 10 dígitos
   const soloNumeros = (event) => {
     if (!/^\d$/.test(event.key) || telefono.value.length >= 10) {
       event.preventDefault();
     }
   };
 
-  // Activar o desactivar botón según política
-  if (politica) {
-    if (!politica.checked) {
-      boton.setAttribute("disabled", "true");
-    }
-
-    politica.addEventListener("change", () => {
-      if (politica.checked) {
-        boton.removeAttribute("disabled");
-      } else {
-        boton.setAttribute("disabled", "true");
-      }
-    });
-  }
-
-  // Eventos
   formulario.addEventListener("submit", validar);
   nombre.addEventListener("keydown", soloLetras);
   telefono.addEventListener("keydown", soloNumeros);

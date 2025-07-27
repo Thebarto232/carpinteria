@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const formulario = document.querySelector(".form--login");
   const correo = document.querySelector('[placeholder="Correo electrónico"]');
   const contrasena = document.querySelector('[placeholder="Contraseña"]');
-  const tipoUsuario = document.getElementById("tipoUsuario");
 
   const agregarError = (input, mensaje) => {
     limpiarError(input);
@@ -27,12 +26,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const correoVal = correo.value.trim();
     const contrasenaVal = contrasena.value.trim();
-    const tipoUsuarioVal = tipoUsuario.value;
 
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const regexContrasena = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/;
 
-    [correo, contrasena, tipoUsuario].forEach(input => limpiarError(input));
+    [correo, contrasena].forEach(input => limpiarError(input));
 
     if (!regexCorreo.test(correoVal)) { 
       agregarError(correo, "Correo electrónico inválido.");
@@ -44,14 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       valido = false;
     }
 
-    if (!["cliente", "proveedor"].includes(tipoUsuarioVal)) {
-      agregarError(tipoUsuario, "Seleccione un tipo de usuario válido.");
-      valido = false;
-    }
-
     if (!valido) return;
 
-    //  Petición al backend
     try {
       const res = await fetch("http://localhost:8080/pruebaApi/api/login", {
         method: "POST",
@@ -67,15 +59,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json();
 
       if (res.ok) {
-        // Inicio de sesión exitoso
         alert("Bienvenido, " + data.nombre_usuario);
         formulario.reset();
 
-        // Puedes redirigir según tipo de usuario o rol
-        if (data.fk_id_rol === 1) {
-          window.location.href = "/interfaz/provedor.html";
-        } else {
-          window.location.href = "../../../index.html";
+        // 🔀 Redirección según rol
+        switch (data.fk_id_rol) {
+          case 1:
+            window.location.href = "/interfaz/provedor.html";
+            break;
+          case 2:
+            window.location.href = "/interfaz../../index.html";
+            break;
+          default:
+            alert("Rol no reconocido. Consulta con el administrador.");
         }
       } else {
         alert(data.mensaje || "Credenciales incorrectas.");
