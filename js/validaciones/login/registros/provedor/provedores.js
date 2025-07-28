@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
       input.nextElementSibling.remove();
     }
   };
-
   const validar = async (e) => {
     e.preventDefault();
     let valido = true;
