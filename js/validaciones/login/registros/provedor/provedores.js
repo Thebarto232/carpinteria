@@ -93,11 +93,23 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
     }
   };
+  // Botón de cerrar sesión
+const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
+
+cerrarSesionBtn.addEventListener("click", () => {
+  // Aquí puedes limpiar almacenamiento local o cookies si usas
+  localStorage.clear();
+  sessionStorage.clear();
+
+  // Redireccionar al login
+  window.location.href = "../login/login.html"; // Ajusta la ruta si es necesario
+});
+
 
   const soloNumeros = (event) => {
     if (!/^\d$/.test(event.key) || telefono.value.length >= 10) {
       event.preventDefault();
-    }
+    } 
   };
 
   formulario.addEventListener("submit", validar);

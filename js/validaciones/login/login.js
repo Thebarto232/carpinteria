@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const contrasenaVal = contrasena.value.trim();
 
     const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexContrasena = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{3,}$/;
+    const regexContrasena = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/;
 
     [correo, contrasena].forEach(input => limpiarError(input));
 
@@ -65,10 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🔀 Redirección según rol
         switch (data.fk_id_rol) {
           case 1:
-            window.location.href = "/interfaz/provedor.html";
+            window.location.href = "../../../interfaz/provedor.html";
             break;
           case 2:
-            window.location.href = "/interfaz../../index.html";
+            window.location.href = "../../../index.html";
             break;
           default:
             alert("Rol no reconocido. Consulta con el administrador.");

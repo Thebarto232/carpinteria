@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
     }
   };
+  
 
   // Solo números (máximo 10 dígitos)
   const soloNumeros = (event) => {
