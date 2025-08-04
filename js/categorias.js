@@ -1,3 +1,10 @@
+const usuario = JSON.parse(localStorage.getItem("usuario"));
+if (!usuario || usuario.rol !== "admin") {
+  alert("Acceso denegado. Debes iniciar sesión como administrador.");
+  window.location.href = "../../../index.html";
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   cargarCategorias();
 

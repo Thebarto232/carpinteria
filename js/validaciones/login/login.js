@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const correo = document.querySelector('[placeholder="Correo electrónico"]');
   const contrasena = document.querySelector('[placeholder="Contraseña"]');
 
+
+
   const agregarError = (input, mensaje) => {
     limpiarError(input);
     const span = document.createElement("span");
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     [correo, contrasena].forEach(input => limpiarError(input));
 
-    if (!regexCorreo.test(correoVal)) { 
+    if (!regexCorreo.test(correoVal)) {
       agregarError(correo, "Correo electrónico inválido.");
       valido = false;
     }
@@ -55,8 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
           contrasena: contrasenaVal
         })
       });
-
+      //guardar usuario de logueo nuevo 
       const data = await res.json();
+      localStorage.setItem("usuario", JSON.stringify(data));
 
       if (res.ok) {
         alert("Bienvenido, " + data.nombre_usuario);
