@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Ventas</title>
+  <title>Gestión de Ventas</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -11,16 +11,16 @@
   </header>
 
   <main class="ventas">
-    <form class="ventas__form">
-      <select class="ventas__select">
-        <option>Proveedor</option>
+    <form class="ventas__form" id="form-venta">
+      <select class="ventas__select" id="select-proveedor">
+        <option value="">Seleccione proveedor</option>
       </select>
-      <select class="ventas__select">
-        <option>Cliente</option>
+      <select class="ventas__select" id="select-cliente">
+        <option value="">Seleccione cliente</option>
       </select>
-      <input class="ventas__input" type="date" placeholder="Fecha de venta">
-      <input class="ventas__input" type="number" placeholder="Valor de venta">
-      <input class="ventas__input" type="number" placeholder="Descuento">
+      <input class="ventas__input" type="date" id="fecha-venta">
+      <input class="ventas__input" type="number" id="valor-venta" placeholder="Valor de venta">
+      <input class="ventas__input" type="number" id="descuento-venta" placeholder="Descuento">
       <button class="ventas__btn" type="submit">Registrar Venta</button>
     </form>
 
@@ -35,10 +35,12 @@
           <th class="ventas__columna">Acciones</th>
         </tr>
       </thead>
-      <tbody>
-        <!-- ventas -->
+      <tbody id="tabla-ventas">
+        <!-- ventas cargadas aquí -->
       </tbody>
     </table>
   </main>
+
+  <script type="module" src="../js/ventas.js"></script>
 </body>
 </html>
