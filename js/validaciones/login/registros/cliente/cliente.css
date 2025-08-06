@@ -2,7 +2,7 @@
 
 
 
-
+/* Estilos para el formulario de registro */
 
 .form__error {
   color: red;
@@ -13,4 +13,25 @@
 
 .color-rojo {
   border: 1px solid red;
+}
+
+/* Estilos para el botón volver */
+.volver {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  
+}
+.volver__link {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.conten_voler {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  
 }
