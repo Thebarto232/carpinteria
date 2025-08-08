@@ -1121,7 +1121,136 @@ overflow: hidden;
   font-weight: bold;
   color: #111827;
 }
+/* Estilos específicos para la gestión de fotos */
+.fotos-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
 
+.fotos-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.foto-upload-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.foto-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.foto-input {
+  position: absolute;
+  left: -9999px;
+}
+
+.foto-upload-btn {
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.foto-upload-btn:hover {
+  background: #0056b3;
+}
+
+.foto-preview {
+  max-width: 200px;
+  max-height: 150px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+}
+
+.fotos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.foto-item {
+  position: relative;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.foto-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.foto-item-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.foto-delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.foto-delete-btn:hover {
+  background: #c82333;
+}
+
+.no-fotos {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 20px;
+}
+
+.loading {
+  text-align: center;
+  color: #007bff;
+  font-style: italic;
+}
+
+.error-message {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.success-message {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+}
 
 
 

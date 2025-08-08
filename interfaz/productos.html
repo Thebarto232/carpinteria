@@ -1,33 +1,38 @@
-<!-- clientes.html -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
   <meta charset="UTF-8">
-  <title>Gestión de Clientes</title>
+  <title>Gestión de Productos</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 
 <body>
   <main class="productos" id="form_producto">
-    <form class="productos__form" id="formularioProducto">
-      <input id="nombre" class="productos__input" type="text" name="nombre_producto" placeholder="Nombre del producto"
-        required>
-      <input id="valor" class="productos__input" type="number" step="0.01" name="valor_producto" placeholder="Valor ($)"
-        required>
+    <!-- 🛠️ Agregado enctype para permitir envío de archivos -->
+    <form class="productos__form" id="formularioProducto" enctype="multipart/form-data">
+      <input id="nombre" class="productos__input" type="text" name="nombre_producto" placeholder="Nombre del producto" required>
+      <input id="valor" class="productos__input" type="number" step="0.01" name="valor_producto" placeholder="Valor ($)" required>
       <input id="stock" class="productos__input" type="number" name="stock" placeholder="Stock disponible" required>
 
+      <!-- ✅ Select para registrar producto -->
       <select id="categoria" class="productos__input" name="categoria" required>
-        <option value="">-- Categoría --</option>
-        <option value="1">Muebles</option>
-        <option value="2">Decoración</option>
-        <option value="3">Iluminación</option>
-        <option value="4">Herramientas</option>
-
+        <!-- Las opciones se cargarán dinámicamente -->
       </select>
+
+      <!-- 📸 Nuevo input para subir imagen del producto -->
+      <input id="foto" class="productos__input" type="file" name="foto_producto" accept="image/*" required>
 
       <button class="productos__btn" type="submit">Registrar producto</button>
     </form>
+
+    <!-- ✅ Select para filtrar productos -->
+    <div class="productos__filtro">
+      <label for="filtroCategoria">Filtrar por categoría:</label>
+      <select id="filtroCategoria" class="productos__input" name="filtroCategoria">
+        <!-- Las opciones se cargarán dinámicamente -->
+      </select>
+    </div>
 
     <table class="productos__tabla">
       <thead>
@@ -45,8 +50,9 @@
         <!-- Aquí se mostrará la lista de productos -->
       </tbody>
     </table>
+
     <div class="conten_buton">
-      <button class="productos__btn--paginacion"><a href="../index.html">regresar</a></button>
+      <a href="../index.html" class="productos__btn--paginacion">Regresar</a>
     </div>
   </main>
 

@@ -1,7 +1,5 @@
 @import url(../../../../../css/styles.css);
 
-
-
 .serach_content{
     display: flex;
     width: 100%;
@@ -13,13 +11,14 @@
 
 .form__error {
   color: red;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  margin-top: 2px;
   display: block;
-  margin-top: 5px;
 }
 .color-rojo {
-  border: 1px solid red;
+  border: 1px solid rgb(34, 31, 31) !important;
 }
+
 .cerrar-sesion {
   position: absolute;
   top: 10px;
