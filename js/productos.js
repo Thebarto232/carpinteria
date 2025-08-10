@@ -1,184 +1,315 @@
-const API_BASE = "http://localhost:8080/pruebaApi/api/productos";
-const API_CATEGORIAS = "http://localhost:8080/pruebaApi/api/categorias";
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.categoriasCargadas) {
+      cargarCategorias();
+      window.categoriasCargadas = true;
+    }
+    fetchProductos();
 
-let productoEditandoId = null;
-
-document.addEventListener("DOMContentLoaded", () => {
-  cargarCategorias();
-  cargarProductos();
-
-  document.querySelector(".productos__btn").addEventListener("click", guardarProducto);
-  document.getElementById("filtroCategoria").addEventListener("change", filtrarPorCategoria);
-});
-
-async function cargarCategorias() {
-  try {
-    const res = await fetch(API_CATEGORIAS);
-    const categorias = await res.json();
-
-    const selectRegistro = document.getElementById("categoria");
-    const selectFiltro = document.getElementById("filtroCategoria");
-
-    [selectRegistro, selectFiltro].forEach(select => {
-      select.innerHTML = `<option value="">${select === selectRegistro ? "-- Categoría --" : "-- Filtrar por categoría --"}</option>`;
-    });
-
-    categorias.forEach(cat => {
-      const option = document.createElement("option");
-      option.value = cat.id_categoria_producto;
-      option.textContent = cat.descripcion_producto;
-      selectRegistro.appendChild(option.cloneNode(true));
-      selectFiltro.appendChild(option);
-    });
-  } catch (err) {
-    console.error("❌ Error al cargar categorías:", err);
-  }
-}
-
-async function cargarProductos(productosExternos = null) {
-  try {
-    const productos = productosExternos || await (await fetch(API_BASE)).json();
-    renderizarProductos(productos);
-  } catch (err) {
-    console.error("❌ Error al cargar productos:", err);
-  }
-}
-
-function renderizarProductos(productos) {
-  const tabla = document.getElementById("tablaProductos");
-  tabla.innerHTML = "";
-
-  if (!productos.length) {
-    tabla.innerHTML = `<tr><td colspan="8">No hay productos registrados.</td></tr>`;
-    return;
-  }
-
-  productos.forEach(p => {
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-      <td>${p.id_producto}</td>
-      <td>${p.nombre_producto}</td>
-      <td>$${p.valor_producto.toFixed(2)}</td>
-      <td>${p.stock}</td>
-      <td>${p.nombre_categoria || p.fk_id_categoria_producto}</td>
-      <td>${new Date(p.fecha_creacion).toLocaleDateString()}</td>
-      <td><img src="${API_BASE}/${p.id_producto}/imagen" alt="Foto" width="60"></td>
-      <td>
-        <button onclick="editarProducto(${p.id_producto})">✏️</button>
-        <button onclick="eliminarProducto(${p.id_producto})">🗑️</button>
-      </td>
-    `;
-    tabla.appendChild(fila);
+    const filtroCategoria = document.getElementById("filtroCategoria");
+    if (filtroCategoria) {
+      filtroCategoria.addEventListener("change", filtrarPorCategoria);
+    }
   });
-}
 
-async function guardarProducto(e) {
-  e.preventDefault();
+  const API_BASE = "http://localhost:8080/pruebaApi/api/productos";
+  const API_CATEGORIAS = "http://localhost:8080/pruebaApi/api/categorias";
 
-  const nombre = document.querySelector("#nombre").value.trim();
-  const valor = parseFloat(document.querySelector("#valor").value);
-  const stock = parseInt(document.querySelector("#stock").value);
-  const categoria = parseInt(document.querySelector("#categoria").value);
-  const fotoInput = document.querySelector("#foto");
+  let productoEditandoId = null;
+  const btn = document.querySelector(".productos__btn");
 
-  if (!nombre || isNaN(valor) || isNaN(stock) || isNaN(categoria)) {
-    return alert("⚠️ Complete todos los campos correctamente.");
-  }
+  btn.addEventListener("click", guardarProducto);
 
-  const producto = {
-    nombre_producto: nombre,
-    valor_producto: valor,
-    stock,
-    fk_id_categoria_producto: categoria,
-    fecha_creacion: new Date().toISOString().slice(0, 10),
-  };
+  async function guardarProducto(e) {
+    e.preventDefault();
 
-  const esEdicion = Boolean(productoEditandoId);
-  const url = esEdicion ? `${API_BASE}/${productoEditandoId}` : API_BASE;
-  const metodo = esEdicion ? "PUT" : "POST";
+    const nombre = document.querySelector("#nombre").value.trim();
+    const valor = parseFloat(document.querySelector("#valor").value);
+    const stock = parseInt(document.querySelector("#stock").value);
+    const categoria = parseInt(document.querySelector("#categoria").value);
+    const fotoInput = document.querySelector("#foto");
 
-  try {
-    const res = await fetch(url, {
-      method: metodo,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(producto),
-    });
-
-    if (!res.ok) throw new Error("Error al guardar producto");
-
-    const idProducto = esEdicion ? productoEditandoId : (await res.json()).id_producto;
-
-    if (fotoInput.files.length > 0) {
-      await subirImagen(idProducto, fotoInput.files[0]);
+    if (!nombre || isNaN(valor) || isNaN(stock) || isNaN(categoria)) {
+      return alert("⚠️ Complete todos los campos correctamente.");
     }
 
-    alert(esEdicion ? "✏️ Producto actualizado" : "✅ Producto guardado");
-    limpiarFormulario();
-    cargarProductos();
-  } catch (err) {
-    console.error("❌ Error:", err);
-    alert("❌ Fallo al registrar producto o imagen");
+    const producto = {
+      nombre_producto: nombre,
+      valor_producto: valor,
+      stock: stock,
+      fk_id_categoria_producto: categoria,
+      fecha_creacion: new Date().toISOString().slice(0, 10),
+    };
+
+    const esEdicion = Boolean(productoEditandoId);
+    const url = esEdicion ? `${API_BASE}/${productoEditandoId}` : API_BASE;
+    const metodo = esEdicion ? "PUT" : "POST";
+
+    try {
+      const resProducto = await fetch(url, {
+        method: metodo,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(producto),
+      });
+
+      if (!resProducto.ok) throw new Error("Error al guardar producto");
+
+      const idProducto = esEdicion
+        ? productoEditandoId
+        : (await resProducto.json()).id_producto;
+
+      // Subir imagen solo si se seleccionó una
+      if (fotoInput.files.length > 0) {
+        await subirImagen(idProducto, fotoInput.files[0]);
+      }
+
+      alert(esEdicion ? "✏️ Producto actualizado" : "✅ Producto guardado");
+      limpiarFormulario();
+      fetchProductos();
+    } catch (err) {
+      console.error("❌ Error:", err);
+      alert("❌ Fallo al registrar producto o imagen");
+    }
   }
-}
 
-async function subirImagen(idProducto, archivo) {
-  const formData = new FormData();
-  formData.append("foto", archivo);
+  async function subirImagen(idProducto, archivo) {
+    const formData = new FormData();
+    formData.append("foto", archivo);
 
-  const res = await fetch(`${API_BASE}/${idProducto}/imagen`, {
-    method: "PUT",
-    body: formData,
-  });
+    const res = await fetch(`${API_BASE}/${idProducto}/imagen`, {
+      method: "PUT",
+      body: formData,
+    });
 
-  if (!res.ok) throw new Error("Error al actualizar imagen");
-}
-
-function editarProducto(id) {
-  fetch(`${API_BASE}/${id}`)
-    .then(res => res.json())
-    .then(p => {
-      document.querySelector("#nombre").value = p.nombre_producto;
-      document.querySelector("#valor").value = p.valor_producto;
-      document.querySelector("#stock").value = p.stock;
-      document.querySelector("#categoria").value = p.fk_id_categoria_producto;
-      productoEditandoId = id;
-      document.querySelector(".productos__btn").textContent = "Actualizar producto";
-    })
-    .catch(err => console.error("❌ Error al obtener producto:", err));
-}
-
-function eliminarProducto(id) {
-  if (!confirm("¿Estás seguro de eliminar este producto?")) return;
-
-  fetch(`${API_BASE}/${id}`, { method: "DELETE" })
-    .then(res => {
-      if (!res.ok) throw new Error("No se pudo eliminar");
-      alert("🗑️ Producto eliminado con éxito");
-      cargarProductos();
-    })
-    .catch(err => console.error("❌ Error al eliminar producto:", err));
-}
-
-function limpiarFormulario() {
-  document.querySelector("#nombre").value = "";
-  document.querySelector("#valor").value = "";
-  document.querySelector("#stock").value = "";
-  document.querySelector("#categoria").value = "";
-  document.querySelector("#foto").value = "";
-  productoEditandoId = null;
-  document.querySelector(".productos__btn").textContent = "Registrar producto";
-}
-
-async function filtrarPorCategoria() {
-  const categoria = document.getElementById("filtroCategoria").value;
-  if (!categoria) return cargarProductos();
-
-  try {
-    const res = await fetch(`${API_BASE}/categoria/${categoria}`);
-    const productosFiltrados = await res.json();
-    cargarProductos(productosFiltrados);
-  } catch (err) {
-    console.error("❌ Error al filtrar:", err);
-    alert("No se pudo filtrar los productos.");
+    if (!res.ok) throw new Error("Error al actualizar imagen");
   }
-}
+
+  function cargarCategorias() {
+    fetch(API_CATEGORIAS)
+      .then((res) => res.json())
+      .then((categorias) => {
+        const selectRegistro = document.getElementById("categoria");
+        const selectFiltro = document.getElementById("filtroCategoria");
+
+        const opciones = (select, texto) => {
+          select.innerHTML = "";
+          const opt = document.createElement("option");
+          opt.value = "";
+          opt.textContent = texto;
+          select.appendChild(opt);
+        };
+
+        opciones(selectRegistro, "-- Categoría --");
+        opciones(selectFiltro, "-- Filtrar por categoría --");
+
+        const idsInsertados = new Set();
+        categorias.forEach((cat) => {
+          if (!idsInsertados.has(cat.id_categoria_producto)) {
+            idsInsertados.add(cat.id_categoria_producto);
+
+            [selectRegistro, selectFiltro].forEach((select) => {
+              const option = document.createElement("option");
+              option.value = cat.id_categoria_producto;
+              option.textContent = cat.descripcion_producto;
+              select.appendChild(option);
+            });
+          }
+        });
+      })
+      .catch((err) => console.error("❌ Error al cargar categorías:", err));
+  }
+
+  function fetchProductos(productosExternos = null) {
+    if (productosExternos) {
+      return renderizarProductos(productosExternos);
+    }
+
+    fetch(API_BASE)
+      .then((res) => res.json())
+      .then((productos) => renderizarProductos(productos))
+      .catch((error) => console.error("❌ Error al cargar productos:", error));
+  }
+
+  function renderizarProductos(productos) {
+    const tabla = document.getElementById("tablaProductos");
+    tabla.innerHTML = "";
+
+    productos.forEach((p) => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${p.id_producto}</td>
+        <td>${p.nombre_producto}</td>
+        <td>$${p.valor_producto.toFixed(2)}</td>
+        <td>${p.stock}</td>
+        <td>${p.nombre_categoria || p.fk_id_categoria_producto}</td>
+        <td>${new Date(p.fecha_creacion).toLocaleDateString()}</td>
+        <td>
+          <img src="${API_BASE}/${p.id_producto}/imagen" alt="Foto" width="60">
+        </td>
+        <td class="conten_botones">
+          <button class="btn_editar" onclick="editarProducto(${p.id_producto})">Editar</button>
+          <button class="btn_eliminar" onclick="eliminarProducto(${p.id_producto})">Eliminar</button>
+        </td>
+      `;
+      tabla.appendChild(fila);
+    });
+  }
+
+  function editarProducto(id) {
+    fetch(`${API_BASE}/${id}`)
+      .then((res) => res.json())
+      .then((p) => {
+        document.querySelector("#nombre").value = p.nombre_producto;
+        document.querySelector("#valor").value = p.valor_producto;
+        document.querySelector("#stock").value = p.stock;
+        document.querySelector("#categoria").value = p.fk_id_categoria_producto;
+        productoEditandoId = id;
+        btn.textContent = "Actualizar producto";
+      })
+      .catch((error) => console.error("❌ Error al obtener producto:", error));
+  }
+
+  function eliminarProducto(id) {
+    if (!confirm("¿Estás seguro de eliminar este producto?")) return;
+
+    fetch(`${API_BASE}/${id}`, { method: "DELETE" })
+      .then((res) => {
+        if (!res.ok) throw new Error("No se pudo eliminar");
+        alert("🗑️ Producto eliminado con éxito");
+        fetchProductos();
+      })
+      .catch((error) => console.error("❌ Error al eliminar producto:", error));
+  }
+  async function guardarProducto(e) {
+    e.preventDefault();
+
+    const nombreInput = document.querySelector("#nombre");
+    const valorInput = document.querySelector("#valor");
+    const stockInput = document.querySelector("#stock");
+    const categoriaInput = document.querySelector("#categoria");
+    const fotoInput = document.querySelector("#foto");
+
+    const nombre = nombreInput.value.trim();
+    const valor = parseFloat(valorInput.value);
+    const stock = parseInt(stockInput.value);
+    const categoria = parseInt(categoriaInput.value);
+
+    // Validación de nombre: solo letras y espacios
+    const soloLetrasRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    if (!soloLetrasRegex.test(nombre)) {
+      nombreInput.focus();
+      return alert("⚠️ El nombre del producto solo debe contener letras y espacios.");
+    }
+    // Validación de nombre
+    if (!nombre) {
+      nombreInput.focus();
+      return alert("⚠️ El nombre del producto es obligatorio.");
+    }
+    
+
+    // Validación de valor
+    if (isNaN(valor) || valor <= 0) {
+      valorInput.focus();
+      return alert("⚠️ Ingrese un valor válido mayor a cero.");
+    }
+
+    // Validación de stock
+    if (isNaN(stock) || stock < 0) {
+      stockInput.focus();
+      return alert("⚠️ Ingrese un stock válido (0 o más).");
+    }
+
+    // Validación de categoría
+    if (isNaN(categoria) || categoria <= 0) {
+      categoriaInput.focus();
+      return alert("⚠️ Seleccione una categoría válida.");
+    }
+    // Validación de foto (opcional)
+    if (!productoEditandoId && fotoInput.files.length === 0) {
+      return alert("⚠️ Debe seleccionar una imagen para el nuevo producto.");
+    }
+    
+    if (fotoInput.files.length > 0) {
+      const archivo = fotoInput.files[0];
+      const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
+      const maxSizeMB = 2;
+    
+      if (!tiposPermitidos.includes(archivo.type)) {
+        return alert("⚠️ Solo se permiten imágenes JPG, PNG o WEBP.");
+      }
+    
+      if (archivo.size > maxSizeMB * 1024 * 1024) {
+        return alert(`⚠️ La imagen no debe superar los ${maxSizeMB}MB.`);
+      }
+    }
+    
+
+    
+
+    const producto = {
+      nombre_producto: nombre,
+      valor_producto: valor,
+      stock: stock,
+      fk_id_categoria_producto: categoria,
+      fecha_creacion: new Date().toISOString().slice(0, 10),
+    };
+
+    const esEdicion = Boolean(productoEditandoId);
+    const url = esEdicion ? `${API_BASE}/${productoEditandoId}` : API_BASE;
+    const metodo = esEdicion ? "PUT" : "POST";
+
+    try {
+      const resProducto = await fetch(url, {
+        method: metodo,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(producto),
+      });
+
+      if (!resProducto.ok) throw new Error("Error al guardar producto");
+
+      const idProducto = esEdicion
+        ? productoEditandoId
+        : (await resProducto.json()).id_producto;
+
+      // Validación de imagen (opcional: tipo y tamaño)
+      if (fotoInput.files.length > 0) {
+        const archivo = fotoInput.files[0];
+        const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
+        if (!tiposPermitidos.includes(archivo.type)) {
+          return alert("⚠️ Solo se permiten imágenes JPG, PNG o WEBP.");
+        }
+        await subirImagen(idProducto, archivo);
+      }
+
+      alert(esEdicion ? "✏️ Producto actualizado" : "✅ Producto guardado");
+      limpiarFormulario();
+      fetchProductos();
+    } catch (err) {
+      console.error("❌ Error:", err);
+      alert("❌ Fallo al registrar producto o imagen");
+    }
+  }
+
+
+  function limpiarFormulario() {
+    document.querySelector("#nombre").value = "";
+    document.querySelector("#valor").value = "";
+    document.querySelector("#stock").value = "";
+    document.querySelector("#categoria").value = "";
+    document.querySelector("#foto").value = "";
+    productoEditandoId = null;
+    btn.textContent = "Registrar producto";
+  }
+
+  async function filtrarPorCategoria() {
+    const categoria = document.getElementById("filtroCategoria").value;
+    if (!categoria) return fetchProductos();
+
+    try {
+      const res = await fetch(`${API_BASE}/categoria/${categoria}`);
+      const productosFiltrados = await res.json();
+      fetchProductos(productosFiltrados);
+    } catch (err) {
+      console.error("Error al filtrar:", err);
+      alert("No se pudo filtrar los productos.");
+    }
+  }
