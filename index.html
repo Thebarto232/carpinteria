@@ -16,6 +16,14 @@
         <img src="../img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
         <div class="header__derecha">
           <button id="cerrarSesionBtn" class="cerrar-sesion">Cerrar sesión</button>
+          <div class="auth__menu">
+            <button class="auth__btn auth__btn--register">Registro</button>
+            <div class="auth__dropdown">
+              <!-- <a href="../js/validaciones/login/registros/cliente/registro_clientes.html" class="auth__item">Registrar
+                Cliente</a> -->
+              <a href="/js/validaciones/login/registros/cliente/registro_clientes.html"
+                class="auth__item">Registrar cliente</a>
+            </div>
         </div>
       </div>
     </header>
@@ -26,29 +34,15 @@
       <label for="menu__toggle" class="menu__btn"><i class="fas fa-bars"></i></label>
       <nav class="navegacion">
         <ul class="navegacion__list">
-          <li class="navegacion__item"><a href="./catalogo.html" class="navegacion__link active">Catálogo</a></li>
-          <li class="navegacion__item"><a href="./cliente/carrito.html" class="navegacion__link">Carrito</a></li>
-          <li class="navegacion__item"><a href="./historial.html" class="navegacion__link">Historial</a></li>
+          <li class="navegacion__item"><a href="/cliente/catalogo.html" class="navegacion__link active">Catálogo</a></li>
+         
         </ul>
       </nav>
     </aside>
 
     <!-- Main Content -->
     <main>
-      <section class="main-content">
-        <h2>Catálogo de Productos</h2>
-
-        <!-- 🔗 Conectado con tabla detalle_carrito -->
-        <div class="catalogo__carrito">
-          <span id="contador-productos">0</span>
-          <button onclick="irAlCarrito()">🛒 Ver carrito</button>
-        </div>
-
-        <!-- 🔗 Conectado con tabla productos -->
-        <div class="container-items" id="productos-container">
-          <!-- Aquí se insertan dinámicamente los productos -->
-        </div>
-      </section>
+  
     </main>
 
     <!-- Footer -->

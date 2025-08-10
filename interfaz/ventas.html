@@ -11,6 +11,16 @@
   </header>
 
   <main class="ventas">
+
+    <!-- Resumen de ventas -->
+    <section class="ventas__resumen">
+      <p>Total de ventas: <span id="total-ventas">0</span></p>
+      <p>Valor total: $<span id="valor-total">0</span></p>
+      <p>Pendientes: <span id="total-pendientes">0</span></p>
+      <p>Concluidas: <span id="total-concluidas">0</span></p>
+    </section>
+
+    <!-- Formulario -->
     <form id="form-venta" class="ventas__form">
       <select id="select-vendedor" class="ventas__select" required>
         <option value="">Seleccione vendedor</option>
@@ -19,11 +29,10 @@
         <option value="">Seleccione comprador</option>
       </select>
       <input id="fecha-venta" class="ventas__input" type="date" required>
-      <input id="valor-venta" class="ventas__input" type="number" placeholder="Valor total" min="0" required>
-      <input id="descuento-venta" class="ventas__input" type="number" placeholder="Descuento" min="0" value="0">
-      <button type="submit" class="ventas__btn">Registrar Venta</button>
+      <button type="submit" class="ventas__btn">Crear Venta</button>
     </form>
 
+    <!-- Tabla -->
     <table class="ventas__tabla">
       <thead>
         <tr>
