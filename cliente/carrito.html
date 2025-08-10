@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo</title>
+  <title>Carrito de Compras</title>
   <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/catalogo.css" />
+  <link rel="stylesheet" href="../cliente/carrito.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -26,9 +27,9 @@
       <label for="menu__toggle" class="menu__btn"><i class="fas fa-bars"></i></label>
       <nav class="navegacion">
         <ul class="navegacion__list">
-          <li class="navegacion__item"><a href="./catalogo.html" class="navegacion__link active">Catálogo</a></li>
-          <li class="navegacion__item"><a href="./cliente/carrito.html" class="navegacion__link">Carrito</a></li>
-          <li class="navegacion__item"><a href="./historial.html" class="navegacion__link">Historial</a></li>
+          <li class="navegacion__item"><a href="catalogo.html" class="navegacion__link">Catálogo</a></li>
+          <li class="navegacion__item"><a href="../cliente/carrito.html" class="navegacion__link active">Carrito</a></li>
+          <li class="navegacion__item"><a href="historial.html" class="navegacion__link">Historial</a></li>
         </ul>
       </nav>
     </aside>
@@ -36,17 +37,13 @@
     <!-- Main Content -->
     <main>
       <section class="main-content">
-        <h2>Catálogo de Productos</h2>
-
-        <!-- 🔗 Conectado con tabla detalle_carrito -->
-        <div class="catalogo__carrito">
-          <span id="contador-productos">0</span>
-          <button onclick="irAlCarrito()">🛒 Ver carrito</button>
+        <h2>🛒 Carrito de Compras</h2>
+        <div class="cards-container" id="carrito-container">
+          <!-- Aquí se insertan los productos del carrito -->
         </div>
-
-        <!-- 🔗 Conectado con tabla productos -->
-        <div class="container-items" id="productos-container">
-          <!-- Aquí se insertan dinámicamente los productos -->
+        <div class="carrito__acciones">
+          <button onclick="vaciarCarrito()">Vaciar carrito</button>
+          <button onclick="finalizarCompra()">Finalizar compra</button>
         </div>
       </section>
     </main>
@@ -57,9 +54,8 @@
         <p>Sistema de gestión para carpintería</p>
       </div>
     </footer>
-
-    <!-- Script que simula conexión con productos y carrito -->
-    <script type="module" src="../js/cliente/catalogo.js"></script>
   </div>
+
+  <script type="module" src="../js/cliente/carrito.js"></script>
 </body>
 </html>

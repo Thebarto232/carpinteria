@@ -11,30 +11,38 @@
   </header>
 
   <main class="detalle-venta">
-    <form class="detalle-venta__form">
-      <select class="detalle-venta__select">
-        <option>Venta</option>
+    <form id="form-detalle" class="detalle-venta__form">
+      <select id="select-venta" class="detalle-venta__select">
+        <option value="">Selecciona una venta</option>
       </select>
-      <select class="detalle-venta__select">
-        <option>Producto</option>
+      <select id="select-producto" class="detalle-venta__select">
+        <option value="">Selecciona un producto</option>
       </select>
-      <input class="detalle-venta__input" type="number" placeholder="Cantidad">
+      <input id="input-cantidad" class="detalle-venta__input" type="number" placeholder="Cantidad" min="1">
       <button class="detalle-venta__btn" type="submit">Agregar</button>
     </form>
 
     <table class="detalle-venta__tabla">
       <thead>
         <tr class="detalle-venta__fila--cabecera">
-          <th class="detalle-venta__columna">Producto</th>
-          <th class="detalle-venta__columna">Cantidad</th>
-          <th class="detalle-venta__columna">Acciones</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tabla-detalle">
         <!-- detalles -->
       </tbody>
     </table>
+
+    <div class="detalle-venta__total">
+      <p>Total: <span id="total-venta">0</span></p>
+      <button id="btn-concluir" class="detalle-venta__btn--concluir">Concluir Venta</button>
+    </div>
   </main>
+
   <script type="module" src="../js/detalle_venta.js"></script>
 </body>
 </html>
