@@ -31,6 +31,7 @@ async function guardarProducto(e) {
   if (!nombre || isNaN(valor) || isNaN(stock) || isNaN(categoria)) {
     return alert("⚠️ Complete todos los campos correctamente.");
   }
+  /**validaciones  areglos */
 
   const producto = {
     nombre_producto: nombre,
