@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Carpintería</title>
+  <title>Administrador - Productos</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet"
@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
   <div class="container_layaout">
     <!-- Header -->
     <header>
@@ -21,30 +20,11 @@
         <img src="../img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
         <div class="header__derecha">
           <div class="cerrar-sesion__wrapper">
-            <button id="cerrarSesionBtn" class="cerrar-sesion">Cerrar sesión</button>
-          </div>
-          <div class="auth">
-            <!-- <button class="auth__btn auth__btn--login">
-              <div class="content_login">
-                <a href="../js/validaciones/login/login.html" class="auth__link">Login</a>
-              </div>
-            </button> -->
-
-            <div class="auth__menu">
-              <button class="auth__btn auth__btn--register">Registro</button>
-              <div class="auth__dropdown">
-                <!-- <a href="../js/validaciones/login/registros/cliente/registro_clientes.html" class="auth__item">Registrar
-                  Cliente</a> -->
-                <a href="../js/validaciones/login/registros/provedor/registro_provedores.html"
-                  class="auth__item">Registrar
-                  Proveedor</a>
-              </div>
-            </div>
+            <button class="cerrar-sesion">Cerrar sesión</button>
           </div>
           <div class="serach_content">
-            <input type="text" class="search__input" placeholder="Buscar...">
-            <button class="search__btn"><i class='bx bx-search'></i>
-            </button>
+            <input type="text" class="search__input" placeholder="Buscar productos...">
+            <button class="search__btn"><i class='bx bx-search'></i></button>
           </div>
         </div>
       </div>
@@ -56,138 +36,21 @@
       <label for="menu__toggle" class="menu__btn"><i class="fas fa-bars"></i></label>
       <nav class="navegacion">
         <ul class="navegacion__list">
-          <li class="navegacion__item"><a href="productos.html" class="navegacion__link">Productos</a></li>
+          <li class="navegacion__item"><a href="productos.html" class="navegacion__link active">Productos</a></li>
           <li class="navegacion__item"><a href="categorias.html" class="navegacion__link">Categorías</a></li>
           <li class="navegacion__item"><a href="usuarios.html" class="navegacion__link">Usuarios</a></li>
           <li class="navegacion__item"><a href="ventas.html" class="navegacion__link">Ventas</a></li>
           <li class="navegacion__item"><a href="detalle_venta.html" class="navegacion__link">Detalle venta</a></li>
         </ul>
       </nav>
-
     </aside>
 
     <!-- Main Content -->
     <main>
       <section class="main-content">
-
-        <!-- Cards para productos destacados -->
-        <div class="productos">
-          <p class="title_productos">
-            productos
-          </p>
-        </div>
-        <div class="cards-container">
-          <div class="card">
-            <img src="../img/mad1.png" alt="Producto 1">
-            <div class="card-content">
-              <h3>Producto 1</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="../img/mad1.png" alt="Producto 2">
-            <div class="card-content">
-              <h3>Producto 2</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="../img/mad1.png" alt="Producto 3">
-            <div class="card-content">
-              <h3>Producto 3</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cards para categorías -->
-        <h2>Categorías más populares</h2>
-        <div class="cards-container">
-          <div class="card">
-            <img src="../img/galeria carpinteria/logo.jpg" alt="Categoría 1">
-            <div class="card-content">
-              <h3>Categoría 1</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="../img/galeria carpinteria/logo.jpg" alt="Categoría 2">
-            <div class="card-content">
-              <h3>Categoría 2</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="../img/galeria carpinteria/logo.jpg" alt="Categoría 3">
-            <div class="card-content">
-              <h3>Categoría 3</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cards para clientes -->
-        <h2>Clientes más recientes</h2>
-        <div class="cards-container">
-          <div class="card">
-            <img src="https://via.placeholder.com/300" alt="Cliente 1">
-            <div class="card-content">
-              <h3>Cliente 1</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/300" alt="Cliente 2">
-            <div class="card-content">
-              <h3>Cliente 2</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/300" alt="Cliente 3">
-            <div class="card-content">
-              <h3>Cliente 3</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cards para proveedores -->
-        <h2>Proveedores</h2>
-        <div class="cards-container">
-          <div class="card">
-            <img src="https://via.placeholder.com/300" alt="Proveedor 1">
-            <div class="card-content">
-              <h3>Proveedor 1</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/300" alt="Proveedor 2">
-            <div class="card-content">
-              <h3>Proveedor 2</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
-          <div class="card">
-            <img src="https://via.placeholder.com/300" alt="Proveedor 3">
-            <div class="card-content">
-              <h3>Proveedor 3</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <button>Ver más</button>
-            </div>
-          </div>
+        <h2>Productos registrados</h2>
+        <div class="cards-container" id="productosContainer">
+          <!-- Aquí se renderizan los productos dinámicamente -->
         </div>
       </section>
     </main>
@@ -197,19 +60,17 @@
       <div class="footer_content">
         <div class="footer__description">
           <div class="foooter__title">
-            <p>sobre nosotros</p>
+            <p>Sobre nosotros</p>
             <div class="footer__parrafo">
-              <p>Este es un sistema de gestión para una carpintería, donde puedes administrar productos, clientes,
-                proveedores y ventas.</p>
+              <p>Este es un sistema de gestión para una carpintería, donde puedes administrar productos, clientes y ventas.</p>
             </div>
           </div>
         </div>
       </div>
     </footer>
+
     <script type="module" src="../home.js"></script>
   </div>
-  <button id="cerrarSesionBtn" class="cerrar-sesion">Cerrar sesión</button>
-
 </body>
 
 </html>

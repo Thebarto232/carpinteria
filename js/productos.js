@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.categoriasCargadas = true;
   }
   fetchProductos();
-
   const filtroCategoria = document.getElementById("filtroCategoria");
   if (filtroCategoria) {
     filtroCategoria.addEventListener("change", filtrarPorCategoria);
@@ -18,6 +17,10 @@ let productoEditandoId = null;
 const btn = document.querySelector(".productos__btn");
 
 btn.addEventListener("click", guardarProducto);
+function verDetalle(id) {
+  window.location.href = `detalle_producto.html?id=${id}`;
+}
+
 
 async function guardarProducto(e) {
   e.preventDefault();
@@ -149,6 +152,7 @@ function renderizarProductos(productos) {
         <td class="conten_botones">
           <button class="btn_editar" onclick="editarProducto(${p.id_producto})">Editar</button>
           <button class="btn_eliminar" onclick="eliminarProducto(${p.id_producto})">Eliminar</button>
+         <button class="btn_vermas" onclick="verDetalle(${p.id_producto})">Ver más</button> <!-- ✅ Este es el nuevo -->
         </td>
       `;
     tabla.appendChild(fila);
@@ -301,6 +305,7 @@ function limpiarFormulario() {
   btn.textContent = "Registrar producto";
 }
 
+
 async function filtrarPorCategoria() {
   const categoria = document.getElementById("filtroCategoria").value;
   if (!categoria) return fetchProductos();
@@ -314,3 +319,7 @@ async function filtrarPorCategoria() {
     alert("No se pudo filtrar los productos.");
   }
 }
+
+
+
+    
