@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Gestión de Ventas</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
   <header class="header">
     <h1 class="header__titulo">Gestión de Ventas</h1>
   </header>
-
   <main class="ventas">
 
     <!-- Resumen de ventas -->
@@ -20,24 +21,36 @@
       <p>Concluidas: <span id="total-concluidas">0</span></p>
     </section>
 
-    <!-- Formulario para crear venta -->
+    <!-- Formulario para registrar venta -->
     <form id="form-venta" class="ventas__form">
+      <label for="select-carrito">Carrito activo:</label>
+      <select id="select-carrito" class="ventas__select" required>
+        <option value="">Seleccione carrito</option>
+        <!-- Cargado dinámicamente con carritos ACTIVO -->
+      </select>
+
       <label for="select-vendedor">Vendedor:</label>
       <select id="select-vendedor" class="ventas__select" required>
         <option value="">Seleccione vendedor</option>
-        <!-- Opciones cargadas dinámicamente -->
+        <!-- Cargado dinámicamente -->
       </select>
 
       <label for="select-comprador">Comprador:</label>
       <select id="select-comprador" class="ventas__select" required>
         <option value="">Seleccione comprador</option>
-        <!-- Opciones cargadas dinámicamente -->
+        <!-- Cargado dinámicamente -->
       </select>
 
-      <label for="fecha-venta">Fecha:</label>
+      <label for="fecha-venta">Fecha de venta:</label>
       <input id="fecha-venta" class="ventas__input" type="date" required>
 
-      <button type="submit" class="ventas__btn">Crear Venta</button>
+      <label for="metodo-pago">Método de pago:</label>
+      <input id="metodo-pago" class="ventas__input" type="text" placeholder="Ej: Efectivo, Tarjeta" required>
+
+      <label for="descuento">Descuento aplicado:</label>
+      <input id="descuento" class="ventas__input" type="number" min="0" value="0">
+
+      <button type="submit" class="ventas__btn">Registrar Venta</button>
     </form>
 
     <!-- Tabla de ventas -->
@@ -45,6 +58,7 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>Carrito</th>
           <th>Vendedor</th>
           <th>Comprador</th>
           <th>Fecha</th>
@@ -60,6 +74,10 @@
     </table>
   </main>
 
+
+
+
   <script type="module" src="../js/ventas.js"></script>
 </body>
+
 </html>

@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Catálogo del Cliente</title>
-  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="/stylos para el cliente/styles.css" />
   <link rel="stylesheet" href="../css/catalogo.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-  <div class="container_layaout">
-    
+  <div class="container_layout">
+
     <!-- 🔝 Header -->
     <header>
       <div class="header_content">
         <img src="../img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
         <div class="header__derecha">
           <button id="cerrarSesionBtn" class="cerrar-sesion">Cerrar sesión</button>
-          <div class="auth__menu">
+
+          <!-- 🔐 Registro solo si no hay sesión activa -->
+          <div class="auth__menu" id="registroClienteMenu">
             <button class="auth__btn auth__btn--register">Registro</button>
             <div class="auth__dropdown">
-              <a href="/js/validaciones/login/registros/cliente/registro_clientes.html" class="auth__item">Registrar cliente</a>
+              <a href="/js/validaciones/login/registros/cliente/registro_clientes.html" class="auth__item">Registrar
+                cliente</a>
             </div>
           </div>
         </div>
@@ -33,22 +38,27 @@
       <label for="menu__toggle" class="menu__btn"><i class="fas fa-bars"></i></label>
       <nav class="navegacion">
         <ul class="navegacion__list">
-          <li class="navegacion__item"><a href="/cliente/catalogo.html" class="navegacion__link active">Catálogo</a></li>
+          <li class="navegacion__item"><a href="/cliente/catalogo.html" class="navegacion__link active">📦 Catálogo</a>
+          </li>
           <li class="navegacion__item"><a href="/cliente/carrito.html" class="navegacion__link">🛒 Carrito</a></li>
-          <li class="navegacion__item"><a href="/cliente/historial.html" class="navegacion__link">📄 Mis Compras</a></li>
+          <li class="navegacion__item"><a href="/cliente/historial.html" class="navegacion__link">📄 Mis Compras</a>
+          </li>
         </ul>
       </nav>
     </aside>
 
     <!-- 🧱 Main Content -->
     <main id="catalogo">
-      <!-- Aquí se renderizan los productos desde catalogo.js -->
+      <h1>📦 Catálogo de productos</h1>
+      <div class="catalogo_container" id="catalogoContainer">
+        <!-- Render dinámico desde catalogo.js -->
+      </div>
     </main>
 
     <!-- 📌 Footer -->
     <footer>
       <div class="footer_content">
-        <p>Sistema de gestión para carpintería</p>
+        <p>Sistema de gestión para carpintería — Cliente</p>
       </div>
     </footer>
 
@@ -56,4 +66,5 @@
     <script type="module" src="../js/cliente/catalogo.js"></script>
   </div>
 </body>
+
 </html>
