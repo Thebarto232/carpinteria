@@ -9,7 +9,7 @@ document.querySelectorAll(".cerrar-sesion").forEach((btn) => {
 
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = "../login.html"; // ✅ Redirección segura
+    window.location.href = "/js/validaciones/login/"; // ✅ Redirección segura
   });
 });
 
@@ -34,13 +34,14 @@ function crearCardProducto(producto) {
       <p>Categoría: ${categoria}</p>
       <p>Stock: ${stock} unidades</p>
       <p>Precio: $${precio.toLocaleString()}</p>
-      <button onclick="verProducto(${producto.id_producto})">Ver más</button>
+    
     </div>
   `;
 
   return card;
 }
 
+{/* <button onclick="verProducto(${producto.id_producto})">Ver más</button> */}
 // 📌 Render dinámico de productos al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   const productosContainer = document.getElementById("productosContainer");

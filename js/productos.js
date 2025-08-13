@@ -152,7 +152,7 @@ function renderizarProductos(productos) {
         <td class="conten_botones">
           <button class="btn_editar" onclick="editarProducto(${p.id_producto})">Editar</button>
           <button class="btn_eliminar" onclick="eliminarProducto(${p.id_producto})">Eliminar</button>
-         <button class="btn_vermas" onclick="verDetalle(${p.id_producto})">Ver más</button> <!-- ✅ Este es el nuevo -->
+         <button class="btn_vermas" onclick="verDetalle(${p.id_producto})">Ver producto</button> <!-- ✅ Este es el nuevo -->
         </td>
       `;
     tabla.appendChild(fila);

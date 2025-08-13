@@ -2,28 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Detalle de Venta</title>
+  <title>Gestión de Venta #ID</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
   <header class="header">
-    <h1 class="header__titulo">Detalle de Venta</h1>
+    <h1 class="header__titulo">Gestión de Venta #ID</h1>
   </header>
 
   <main class="detalle-venta">
+    <!-- Formulario para agregar productos -->
     <form id="form-detalle" class="detalle-venta__form">
-      <select id="select-venta" class="detalle-venta__select">
+      <label for="select-venta">Venta:</label>
+      <select id="select-venta" class="detalle-venta__select" required>
         <option value="">Selecciona una venta</option>
+        <!-- Opciones cargadas dinámicamente -->
       </select>
-      <select id="select-producto" class="detalle-venta__select">
+
+      <label for="select-producto">Producto:</label>
+      <select id="select-producto" class="detalle-venta__select" required>
         <option value="">Selecciona un producto</option>
+        <!-- Opciones cargadas dinámicamente -->
       </select>
-      <input id="input-cantidad" class="detalle-venta__input" type="number" placeholder="Cantidad" min="1">
-      <button class="detalle-venta__btn" type="submit">Agregar</button>
+
+      <label for="input-cantidad">Cantidad:</label>
+      <input id="input-cantidad" class="detalle-venta__input" type="number" placeholder="Cantidad" min="1" required>
+
+      <button class="detalle-venta__btn" type="submit">Agregar Producto</button>
     </form>
 
-    <p id="estado-venta" class="detalle-venta__estado">Estado actual: ...</p>
+    <!-- Estado de la venta -->
+    <p id="estado-venta" class="detalle-venta__estado">Estado actual: <span id="estado-texto">...</span></p>
 
+    <!-- Tabla de productos agregados -->
     <table class="detalle-venta__tabla">
       <thead>
         <tr>
@@ -34,12 +45,15 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <tbody id="tabla-detalle"></tbody>
+      <tbody id="tabla-detalle">
+        <!-- Filas generadas dinámicamente -->
+      </tbody>
     </table>
 
+    <!-- Total y botón de concluir -->
     <div class="detalle-venta__total">
       <p>Total acumulado: $<span id="total-venta">0</span></p>
-      <button id="btn-concluir" class="detalle-venta__btn--concluir">Concluir Venta</button>
+      <button id="btn-concluir" class="detalle-venta__btn--concluir" disabled>Concluir Venta</button>
     </div>
   </main>
 

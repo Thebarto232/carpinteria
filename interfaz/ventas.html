@@ -20,19 +20,27 @@
       <p>Concluidas: <span id="total-concluidas">0</span></p>
     </section>
 
-    <!-- Formulario -->
+    <!-- Formulario para crear venta -->
     <form id="form-venta" class="ventas__form">
+      <label for="select-vendedor">Vendedor:</label>
       <select id="select-vendedor" class="ventas__select" required>
         <option value="">Seleccione vendedor</option>
+        <!-- Opciones cargadas dinámicamente -->
       </select>
+
+      <label for="select-comprador">Comprador:</label>
       <select id="select-comprador" class="ventas__select" required>
         <option value="">Seleccione comprador</option>
+        <!-- Opciones cargadas dinámicamente -->
       </select>
+
+      <label for="fecha-venta">Fecha:</label>
       <input id="fecha-venta" class="ventas__input" type="date" required>
+
       <button type="submit" class="ventas__btn">Crear Venta</button>
     </form>
 
-    <!-- Tabla -->
+    <!-- Tabla de ventas -->
     <table class="ventas__tabla">
       <thead>
         <tr>
@@ -46,7 +54,9 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <tbody id="tabla-ventas"></tbody>
+      <tbody id="tabla-ventas">
+        <!-- Filas generadas dinámicamente -->
+      </tbody>
     </table>
   </main>
 
