@@ -34,14 +34,13 @@ function crearCardProducto(producto) {
       <p>Categoría: ${categoria}</p>
       <p>Stock: ${stock} unidades</p>
       <p>Precio: $${precio.toLocaleString()}</p>
-    
     </div>
   `;
 
   return card;
 }
 
-{/* <button onclick="verProducto(${producto.id_producto})">Ver más</button> */}
+{/* <button onclick="verProducto(${producto.id_producto})">Ver más</button> */ }
 // 📌 Render dinámico de productos al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   const productosContainer = document.getElementById("productosContainer");

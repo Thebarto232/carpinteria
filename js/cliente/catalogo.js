@@ -16,9 +16,9 @@ function crearCardProducto(producto) {
       <p>Categoría: ${categoria}</p>
       <p>Precio: $${precio.toLocaleString()}</p>
       ${stock <= 0
-        ? `<p class="stock-agotado">Stock: 0 unidades (Agotado)</p>`
-        : `<p>Stock: ${stock} unidades</p>`
-      }
+      ? `<p class="stock-agotado">Stock: 0 unidades (Agotado)</p>`
+      : `<p>Stock: ${stock} unidades</p>`
+    }
     </div>
   `;
 
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function validarProducto(p) {
     return p.id_producto && p.nombre_producto && p.nombre_categoria &&
-           p.valor_producto != null && p.stock != null;
+      p.valor_producto != null && p.stock != null;
   }
 
   function renderizarCatalogo(lista) {
