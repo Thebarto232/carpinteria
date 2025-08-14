@@ -4,78 +4,111 @@
 <head>
   <meta charset="UTF-8">
   <title>Gestión de Ventas</title>
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../costum/costum.css">
 </head>
 
 <body>
   <header class="header">
-    <h1 class="header__titulo">Gestión de Ventas</h1>
+    <h1 class="header__title">Gestión de Ventas</h1>
   </header>
+
   <main class="ventas">
 
-    <!-- Resumen de ventas -->
-    <section class="ventas__resumen">
-      <p>Total de ventas: <span id="total-ventas">0</span></p>
-      <p>Valor total: $<span id="valor-total">0</span></p>
-      <p>Pendientes: <span id="total-pendientes">0</span></p>
-      <p>Concluidas: <span id="total-concluidas">0</span></p>
+    <!-- 🔷 Tarjetas resumen -->
+    <section class="ventas__summary">
+      <div class="summary-card summary-card--ventas">
+        <h3 class="summary-card__title">Ventas registradas</h3>
+        <p class="summary-card__value"><span id="ventas-registradas">0</span></p>
+      </div>
+      <div class="summary-card summary-card--valor">
+        <h3 class="summary-card__title">Valor total</h3>
+        <p class="summary-card__value">$<span id="valor-total">0</span></p>
+      </div>
     </section>
 
-    <!-- Formulario para registrar venta -->
-    <form id="form-venta" class="ventas__form">
-      <label for="select-carrito">Carrito activo:</label>
-      <select id="select-carrito" class="ventas__select" required>
-        <option value="">Seleccione carrito</option>
-        <!-- Cargado dinámicamente con carritos ACTIVO -->
-      </select>
+    <!-- 🧾 Botón para registrar venta -->
+    <section class="ventas__actions">
+      <button id="btn-nueva-venta" class="button button--primary">➕ Registrar nueva venta</button>
+    </section>
 
-      <label for="select-vendedor">Vendedor:</label>
-      <select id="select-vendedor" class="ventas__select" required>
-        <option value="">Seleccione vendedor</option>
-        <!-- Cargado dinámicamente -->
-      </select>
+    <!-- 📋 Tabla de ventas -->
+    <section class="ventas__table-container">
+      <table class="ventas__table">
+        <thead class="ventas__table-head">
+          <tr>
+            <th>ID Venta</th>
+            <th>Fecha</th>
+            <th>Método de Pago</th>
+            <th>Descuento</th>
+            <th>Valor Total</th>
+            <th>Estado</th>
+            <th>Carrito</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ventas" class="ventas__table-body">
+          <!-- Filas dinámicas -->
+        </tbody>
+      </table>
+    </section>
 
-      <label for="select-comprador">Comprador:</label>
-      <select id="select-comprador" class="ventas__select" required>
-        <option value="">Seleccione comprador</option>
-        <!-- Cargado dinámicamente -->
-      </select>
+    <!-- 🧾 Modal para registrar venta -->
+    <div id="modal-venta" class="modal modal--hidden">
+      <div class="modal__content">
+        <h2 class="modal__title">Registrar Venta</h2>
+        <form id="form-venta" class="form form--venta">
 
-      <label for="fecha-venta">Fecha de venta:</label>
-      <input id="fecha-venta" class="ventas__input" type="date" required>
+          <div class="form__group">
+            <label for="select-carrito" class="form__label">Carrito asociado:</label>
+            <select id="select-carrito" class="form__select" required></select>
+          </div>
 
-      <label for="metodo-pago">Método de pago:</label>
-      <input id="metodo-pago" class="ventas__input" type="text" placeholder="Ej: Efectivo, Tarjeta" required>
+          <div class="form__group">
+            <label for="fecha-venta" class="form__label">Fecha:</label>
+            <input id="fecha-venta" class="form__input" type="date" required>
+          </div>
 
-      <label for="descuento">Descuento aplicado:</label>
-      <input id="descuento" class="ventas__input" type="number" min="0" value="0">
+          <div class="form__group">
+            <label for="metodo-pago" class="form__label">Método de pago:</label>
+            <input id="metodo-pago" class="form__input" type="text" placeholder="Efectivo, Tarjeta" required>
+          </div>
 
-      <button type="submit" class="ventas__btn">Registrar Venta</button>
-    </form>
+          <div class="form__group">
+            <label for="descuento" class="form__label">Descuento:</label>
+            <input id="descuento" class="form__input" type="number" min="0" value="0">
+          </div>
 
-    <!-- Tabla de ventas -->
-    <table class="ventas__tabla">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Carrito</th>
-          <th>Vendedor</th>
-          <th>Comprador</th>
-          <th>Fecha</th>
-          <th>Valor</th>
-          <th>Descuento</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody id="tabla-ventas">
-        <!-- Filas generadas dinámicamente -->
-      </tbody>
-    </table>
+          <div class="form__group">
+            <label for="estado" class="form__label">Estado:</label>
+            <select id="estado" class="form__select" required>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Pagado">Pagado</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+
+          <div class="form__actions">
+            <button type="submit" class="button button--confirm">Registrar</button>
+            <button type="button" id="btn-cerrar-modal" class="button button--cancel">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 🧾 Modal para ver productos del carrito -->
+    <div id="modal-carrito" class="modal modal--hidden">
+      <div class="modal__content">
+        <h2 class="modal__title">Productos del Carrito</h2>
+        <ul id="lista-productos-carrito" class="carrito__lista">
+          <!-- Productos dinámicos -->
+        </ul>
+        <div class="form__actions">
+          <button type="button" id="btn-cerrar-carrito" class="button button--cancel">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
   </main>
-
-
-
 
   <script type="module" src="../js/ventas.js"></script>
 </body>

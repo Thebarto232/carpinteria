@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle de Carritos</title>
+  <link rel="stylesheet" href="../costum/costum.css">
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__title">Detalle de Carritos</h1>
+  </header>
+
+  <main class="carritos">
+
+    <!-- 🔍 Selector de carrito -->
+    <section class="carritos__selector">
+      <label for="select-carrito" class="form__label">Selecciona un carrito:</label>
+      <select id="select-carrito" class="form__select">
+        <!-- Opciones dinámicas -->
+      </select>
+    </section>
+
+    <!-- 📦 Tabla de productos del carrito -->
+    <section class="carritos__detalle">
+      <h2 class="carritos__title">Productos en el carrito</h2>
+      <table class="carritos__table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-items">
+          <!-- Filas dinámicas -->
+        </tbody>
+      </table>
+      <div class="carritos__total">
+        <strong>Total del carrito: $<span id="total-carrito">0</span></strong>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="../js/cariito_items.js"></script>
+</body>
+</html>

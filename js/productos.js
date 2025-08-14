@@ -22,58 +22,58 @@ function verDetalle(id) {
 }
 
 
-async function guardarProducto(e) {
-  e.preventDefault();
+// async function guardarProducto(e) {
+//   e.preventDefault();
 
-  const nombre = document.querySelector("#nombre").value.trim();
-  const valor = parseFloat(document.querySelector("#valor").value);
-  const stock = parseInt(document.querySelector("#stock").value);
-  const categoria = parseInt(document.querySelector("#categoria").value);
-  const fotoInput = document.querySelector("#foto");
+//   const nombre = document.querySelector("#nombre").value.trim();
+//   const valor = parseFloat(document.querySelector("#valor").value);
+//   const stock = parseInt(document.querySelector("#stock").value);
+//   const categoria = parseInt(document.querySelector("#categoria").value);
+//   const fotoInput = document.querySelector("#foto");
 
-  if (!nombre || isNaN(valor) || isNaN(stock) || isNaN(categoria)) {
-    return alert("⚠️ Complete todos los campos correctamente.");
-  }
-  /**validaciones  areglos */
+//   if (!nombre || isNaN(valor) || isNaN(stock) || isNaN(categoria)) {
+//     return alert("⚠️ Complete todos los campos correctamente.");
+//   }
+//   /**validaciones  areglos */
 
-  const producto = {
-    nombre_producto: nombre,
-    valor_producto: valor,
-    stock: stock,
-    fk_id_categoria_producto: categoria,
-    fecha_creacion: new Date().toISOString().slice(0, 10),
-  };
+//   const producto = {
+//     nombre_producto: nombre,
+//     valor_producto: valor,
+//     stock: stock,
+//     fk_id_categoria_producto: categoria,
+//     fecha_creacion: new Date().toISOString().slice(0, 10),
+//   };
 
-  const esEdicion = Boolean(productoEditandoId);
-  const url = esEdicion ? `${API_BASE}/${productoEditandoId}` : API_BASE;
-  const metodo = esEdicion ? "PUT" : "POST";
+//   const esEdicion = Boolean(productoEditandoId);
+//   const url = esEdicion ? `${API_BASE}/${productoEditandoId}` : API_BASE;
+//   const metodo = esEdicion ? "PUT" : "POST";
 
-  try {
-    const resProducto = await fetch(url, {
-      method: metodo,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(producto),
-    });
+//   try {
+//     const resProducto = await fetch(url, {
+//       method: metodo,
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(producto),
+//     });
 
-    if (!resProducto.ok) throw new Error("Error al guardar producto");
+//     if (!resProducto.ok) throw new Error("Error al guardar producto");
 
-    const idProducto = esEdicion
-      ? productoEditandoId
-      : (await resProducto.json()).id_producto;
+//     const idProducto = esEdicion
+//       ? productoEditandoId
+//       : (await resProducto.json()).id_producto;
 
-    // Subir imagen solo si se seleccionó una
-    if (fotoInput.files.length > 0) {
-      await subirImagen(idProducto, fotoInput.files[0]);
-    }
+//     // Subir imagen solo si se seleccionó una
+//     if (fotoInput.files.length > 0) {
+//       await subirImagen(idProducto, fotoInput.files[0]);
+//     }
 
-    alert(esEdicion ? "✏️ Producto actualizado" : "✅ Producto guardado");
-    limpiarFormulario();
-    fetchProductos();
-  } catch (err) {
-    console.error("❌ Error:", err);
-    alert("❌ Fallo al registrar producto o imagen");
-  }
-}
+//     alert(esEdicion ? "✏️ Producto actualizado" : "✅ Producto guardado");
+//     limpiarFormulario();
+//     fetchProductos();
+//   } catch (err) {
+//     console.error("❌ Error:", err);
+//     alert("❌ Fallo al registrar producto o imagen");
+//   }
+// }
 
 async function subirImagen(idProducto, archivo) {
   const formData = new FormData();
@@ -198,6 +198,7 @@ async function guardarProducto(e) {
   const stock = parseInt(stockInput.value);
   const categoria = parseInt(categoriaInput.value);
 
+
   // Validación de nombre: solo letras y espacios
   const soloLetrasRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
   if (!soloLetrasRegex.test(nombre)) {
@@ -209,6 +210,9 @@ async function guardarProducto(e) {
     nombreInput.focus();
     return alert("⚠️ El nombre del producto es obligatorio.");
   }
+  
+  
+
 
 
   // Validación de valor
