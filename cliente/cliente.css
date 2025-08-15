@@ -88,7 +88,62 @@
     flex-direction: column;
     gap: 1rem;
   }
-  
+
+.carrito-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .carrito__titulo {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+
+  }
+  .carrito__mensaje {
+    font-size: 1rem;
+    color: #138e97;
+    text-align: center;
+  }
+  .btn__confirmar-item {
+    background-color: #138e97;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+  }
+  .btn__confirmar-item:hover {
+    background-color: #0f6b74;
+  }
+  .btn__eliminar-item {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+  } 
+  .card__item {
+    background-color: #ffffff;
+    border: 1px solid #181515;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+
+
+  }
+  .card__item:hover {
+    transform: scale(1.01);
+  } 
   /* Footer */
   .layout__footer {
     grid-area: footer;
