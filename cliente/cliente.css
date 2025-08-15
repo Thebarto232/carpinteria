@@ -1,0 +1,214 @@
+
+* {
+  margin: 0; /* Remueve los márgenes predeterminados de todos los elementos */
+  padding: 0; /* Remueve el padding predeterminado de todos los elementos */
+  box-sizing: border-box; /* Cambia el modelo de caja para que padding y border se incluyan en el tamaño total de los elementos */
+}
+
+/* Layout general */
+.layout__container {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "main main"
+      "footer footer";
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .item-carrito {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+  }	
+  /* Header */
+  .layout__header {
+    grid-area: header;
+    background-color: #2c3e50;
+    padding: 1rem;
+  }
+  .estado-completado {
+    border-left: 4px solid green;
+    background-color: #e6ffed;
+  }
+  .estado-pendiente {
+    border-left: 4px solid orange;
+    background-color: #fff7e6;
+  }
+  .estado-cancelado {
+    border-left: 4px solid red;
+    background-color: #ffe6e6;
+  }
+  
+  
+  .header__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .header__logo {
+    max-height: 60px;
+  }
+  
+  /* Sidebar */
+  .layout__sidebar {
+    grid-area: sidebar;
+    background-color: #ecf0f1;
+    padding: 1rem;
+  }
+  
+  /* Main */
+  .layout__main {
+    grid-area: main;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .main__title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #34495e;
+  }
+  
+  .historial__contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Footer */
+  .layout__footer {
+    grid-area: footer;
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .footer__text {
+    margin: 0;
+  }
+  /* 🧾 Bloques de compra */
+.compra-item {
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-left: 6px solid #7f8c8d; /* color neutro por defecto */
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.compra-item:hover {
+  transform: scale(1.01);
+}
+
+/* 🎯 Estados visuales */
+.estado-pendiente {
+  border-left-color: orange;
+}
+
+.estado-completado {
+  border-left-color: green;
+}
+
+.estado-cancelada {
+  border-left-color: red;
+}
+
+/* 🧩 Tipografía interna */
+.compra-item p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #2c3e50;
+}
+
+.compra-item strong {
+  color: #34495e;
+}
+
+/* 📭 Mensajes vacíos o de error */
+.mensaje-vacio,
+.mensaje-error {
+  padding: 1rem;
+  background-color: #fce4ec;
+  border: 1px dashed #e91e63;
+  color: #c2185b;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+    /* 🛒 Contenedor de productos */
+.carrito__contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* 🧱 Tarjeta de producto */
+  .producto-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .producto-item p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+    color: #2c3e50;
+  }
+  
+  /* 📊 Resumen de compra */
+  .carrito__resumen {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #ccc;
+  }
+  
+  .resumen__total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .resumen__label {
+    margin-right: 0.5rem;
+  }
+  
+  .resumen__valor {
+    color: #27ae60;
+  }
+  
+  /* 🟢 Botón de confirmar */
+  .btn__confirmar {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn__confirmar:hover {
+    background-color: #219150;
+  }
+  

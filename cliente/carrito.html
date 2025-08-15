@@ -3,22 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>revisar su compra</title>
-  <link rel="stylesheet" href="../css/cliente/carrito.css" />
+  <title>Revisar su compra</title>
+  <!-- <link rel="stylesheet" href="/css/styles.css" /> -->
+  <link rel="stylesheet" href="/cliente/cliente.css">
 </head>
 <body>
-  <header>
-    <h1>Tu Carrito</h1>
-  </header>
+  <div class="layout__container">
 
-  <main id="carrito-container">
-    <!-- Productos agregados se renderizan aquí -->
-  </main>
+    <!-- 🔝 Header -->
+    <header class="layout__header">
+      <div class="header__content">
+        <h1 class="main__title">Tu Carrito</h1>
+      </div>
+    </header>
 
-  <footer>
-    <button id="confirmar-compra">Confirmar Compra</button>
-  </footer>
+    <!-- 🧾 Main -->
+    <main class="layout__main">
+      <section id="carrito-container" class="carrito__contenedor">
+        <!-- Productos agregados se renderizan aquí -->
+      </section>
+    </main>
 
-  <script type="module" src="../js/cliente/carrito.js"></script>
+    <!-- 📌 Footer -->
+    <footer class="layout__footer">
+      <div class="footer__content">
+        <button id="confirmar-compra" class="btn__confirmar">Confirmar Compra</button>
+      </div>
+    </footer>
+
+    <!-- 🧠 Script -->
+    <script type="module" src="../js/cliente/carrito.js"></script>
+  </div>
 </body>
 </html>

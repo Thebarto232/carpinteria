@@ -6,50 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Historial de Compras</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/historial.css">
+  <link rel="stylesheet" href="/cliente/cliente.css">
 </head>
 
 <body>
-  <div class="container_layaout">
+  <div class="layout__container">
 
     <!-- 🔝 Header -->
-    <header>
-      <div class="header_content">
-        <img src="../img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
-        <div class="header__derecha">
-          <button id="cerrarSesionBtn" class="cerrar-sesion">Cerrar sesión</button>
-        </div>
-      </div>
+    <header class="layout__header">
+   
     </header>
 
     <!-- 📚 Sidebar -->
-    <aside class="sidebar">
-      <nav class="navegacion">
-        <ul class="navegacion__list">
-
-          <li class="navegacion__item"><a href="/cliente/historial.html" class="navegacion__link active">Historial</a>
-          </li>
-        </ul>
-      </nav>
+    <aside class="layout__sidebar">
+      <!-- Puedes agregar navegación si lo deseas -->
     </aside>
 
     <!-- 🧾 Main -->
-    <main id="historial">
-      <h2>Mis Compras</h2>
-      <section id="comprasContainer">
-        <!-- Aquí se renderizan las compras desde historial.js -->
+    <main class="layout__main" id="historial">
+      <h2 class="main__title">Mis Compras</h2>
+      <section id="contenedor-historial-compras" class="historial__contenedor">
+        <!-- Las compras se renderizan aquí desde historial.js -->
       </section>
     </main>
 
     <!-- 📌 Footer -->
-    <footer>
-      <div class="footer_content">
-        <p>Sistema de gestión para carpintería</p>
+    <footer class="layout__footer">
+      <div class="footer__content">
+        <p class="footer__text">Sistema de gestión para carpintería</p>
       </div>
     </footer>
 
     <!-- 🧠 Script -->
-    <script type="module" src="../js/cliente/historial.js"></script>
+    <script type="module" src="/js/cliente/historial.js"></script>
   </div>
 </body>
 
