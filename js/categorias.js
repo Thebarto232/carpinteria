@@ -1,24 +1,16 @@
-  document.addEventListener("DOMContentLoaded", () => {
-    // 🔹 Validar que el usuario logueado sea ADMIN/PROVEEDOR (fk_id_rol = 1)
-    // const usuario = JSON.parse(localStorage.getItem("usuario"));
-    // if (!usuario || usuario.fk_id_rol !== 1) {
-    //   alert("Acceso denegado. Debes iniciar sesión como administrador/proveedor.");
-    //   window.location.href = "../../../index.html";
-    //   return;
-    // }
+document.addEventListener("DOMContentLoaded", () => {
+  cargarCategorias();
 
-    cargarCategorias();
-
-    const buscarInput = document.querySelector("#buscarCategoria");
-    buscarInput.addEventListener("input", filtrarCategorias);
-  });
+  const buscarInput = document.querySelector("#buscarCategoria");
+  buscarInput.addEventListener("input", filtrarCategorias);
+});
 
 let categoriasGlobal = [];
 let modoEdicion = false;
 
 const form = document.querySelector("#formCategoria");
 const cancelarBtn = document.querySelector("#cancelarEdicion");
-const submitBtn = document.querySelector("#btnGuardarCategoria"); // Asegúrate de tener este botón en tu HTML
+const submitBtn = document.querySelector("#btnGuardarCategoria");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -27,41 +19,14 @@ form.addEventListener("submit", (e) => {
   const descripcion = document.querySelector("#descripcionCategoria").value.trim();
 
   // 🔒 Validaciones defensivas
-  if (isNaN(id) || id < 0) {
-    alert("⚠️ ID inválido.");
+  if (isNaN(id) || id <= 0) {
+    alert("⚠️ Debes ingresar un ID válido (mayor a 0).");
     return;
   }
 
-  if (!descripcion) {
-    alert("⚠️ La descripción no puede estar vacía.");
+  if (!descripcion || descripcion.length < 3 || descripcion.length > 50) {
+    alert("⚠️ La descripción debe tener entre 3 y 50 caracteres.");
     return;
-  }
-
-  if (descripcion.length > 50) {
-    alert("⚠️ La descripción no puede superar los 50 caracteres.");
-    return;
-  }
-  if (descripcion.length < 3) {
-    alert("⚠️ La descripción debe tener al menos 3 caracteres.");
-    return;
-  }
-  if (descripcion.length > 50) {
-    alert("⚠️ La descripción no puede superar los 50 caracteres.");
-    return;
-  }
-  if (descripcion.length < 3) {
-    alert("⚠️ La descripción debe tener al menos 3 caracteres.");
-    return;
-  }
-  if (descripcion.trim().length === 0) {
-    alert("⚠️ La descripción no puede estar vacía.");
-    return;
-  }
-  if (descripcion) {
-    alert("⚠️  no puede editar un id existente");
-  }
-  if (descripcion) {
-    alert("⚠️  no puede editar un id existente");
   }
 
   if (!/[a-zA-Z0-9]/.test(descripcion)) {
@@ -85,19 +50,23 @@ form.addEventListener("submit", (e) => {
       return;
     }
 
-
     if (original.descripcion_producto.trim().toLowerCase() === descripcion.toLowerCase()) {
       alert("⚠️ No se detectaron cambios en la descripción.");
       return;
     }
   } else {
+    const idExistente = categoriasGlobal.find((c) => c.id_categoria_producto === id);
+    if (idExistente) {
+      alert("⚠️ Ya existe una categoría con ese ID.");
+      return;
+    }
+
     if (existe) {
       alert("⚠️ La categoría ya existe.");
       return;
     }
   }
 
-  // 🔄 Bloquear botón para evitar múltiples envíos
   submitBtn.disabled = true;
 
   const categoria = {
@@ -105,7 +74,10 @@ form.addEventListener("submit", (e) => {
     descripcion_producto: descripcion
   };
 
-  const url = "http://localhost:8080/pruebaApi/api/categorias";
+  const url = modoEdicion
+    ? `http://localhost:8080/pruebaApi/api/categorias/${id}`
+    : "http://localhost:8080/pruebaApi/api/categorias";
+
   const metodo = modoEdicion ? "PUT" : "POST";
 
   fetch(url, {
@@ -183,7 +155,6 @@ function eliminarCategoria(id) {
     return;
   }
 
-  // 🔒 Validación: no eliminar si tiene productos asociados
   if (categoria.total_productos && categoria.total_productos > 0) {
     alert("⚠️ No se puede eliminar esta categoría porque tiene productos asociados.");
     return;
@@ -202,5 +173,12 @@ function eliminarCategoria(id) {
     .catch((err) => {
       console.error("Error al eliminar categoría:", err);
     });
+}
 
+function filtrarCategorias() {
+  const texto = document.querySelector("#buscarCategoria").value.toLowerCase();
+  const filtradas = categoriasGlobal.filter((c) =>
+    c.descripcion_producto.toLowerCase().includes(texto)
+  );
+  renderizarCategorias(filtradas);
 }

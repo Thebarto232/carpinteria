@@ -2,29 +2,33 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gestión de Categorías</title>
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/styles.css" />
 </head>
 
 <body>
   <main class="categoria">
 
-
-
+    <!-- 🔍 Buscador de categorías -->
     <section class="categoria__busqueda">
       <input type="text" id="buscarCategoria" class="categoria__input" placeholder="🔍 Buscar categoría..." />
     </section>
-    
+
+    <!-- 📝 Formulario de creación/edición -->
     <form id="formCategoria" class="categoria__form">
       <input type="number" id="idCategoria" class="categoria__input" placeholder="ID categoría" required />
       <input type="text" id="descripcionCategoria" class="categoria__input" placeholder="Nombre de la categoría"
         required />
-      <button type="submit" class="categoria__btn">💾 Guardar</button>
-      <button type="button" id="cancelarEdicion" class="categoria__btn categoria__btn--cancelar" hidden>❌
-        Cancelar</button>
+      <button type="submit" id="btnGuardarCategoria" class="categoria__btn">
+        💾 Guardar
+      </button>
+      <button type="button" id="cancelarEdicion" class="categoria__btn categoria__btn--cancelar" hidden>
+        ❌ Cancelar
+      </button>
     </form>
 
+    <!-- 📋 Tabla de categorías -->
     <table id="tablaCategorias" class="categoria__tabla">
       <thead>
         <tr class="categoria__fila categoria__fila--cabecera">
@@ -40,6 +44,8 @@
     </table>
 
   </main>
+
+  <!-- 🔗 Script JS cargado al final para asegurar que el DOM esté listo -->
   <script src="../js/categorias.js"></script>
 </body>
 
