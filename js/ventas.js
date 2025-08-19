@@ -16,6 +16,30 @@ const modalCarrito = document.getElementById("modal-carrito");
 const listaProductosCarrito = document.getElementById("lista-productos-carrito");
 const btnCerrarCarrito = document.getElementById("btn-cerrar-carrito");
 
+// ✅ Modal para editar estado
+const modalEditarEstado = document.createElement("div");
+modalEditarEstado.classList.add("modal", "modal--hidden");
+modalEditarEstado.innerHTML = `
+  <div class="modal__content">
+    <h2 class="modal__title">Editar Estado de Venta</h2>
+    <select id="select-nuevo-estado" class="form__select">
+      <option value="PENDIENTE">PENDIENTE</option>
+      <option value="COMPLETADA">COMPLETADA</option>
+      <option value="CANCELADA">CANCELADA</option>
+    </select>
+    <div class="form__actions">
+      <button id="btn-guardar-estado" class="button button--confirm">Guardar</button>
+      <button id="btn-cerrar-estado" class="button button--cancel">Cancelar</button>
+    </div>
+  </div>
+`;
+document.body.appendChild(modalEditarEstado);
+const selectNuevoEstado = document.getElementById("select-nuevo-estado");
+const btnGuardarEstado = document.getElementById("btn-guardar-estado");
+const btnCerrarEstado = document.getElementById("btn-cerrar-estado");
+
+let ventaSeleccionadaId = null;
+
 // 🗓️ Formatear fecha
 function formatearFecha(fechaRaw) {
   const fecha = new Date(fechaRaw);
@@ -45,6 +69,24 @@ async function cargarCarritos() {
   } catch (error) {
     alert("❌ Error al cargar carritos disponibles.");
     console.error(error);
+  }
+}
+
+// 🔄 Cambiar estado de venta
+async function cambiarEstadoVenta(id, nuevoEstado) {
+  try {
+    const res = await fetch(`${API_URL}/ventas/${id}/estado`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ estado: nuevoEstado })
+    });
+    if (!res.ok) throw new Error("Error al actualizar estado");
+
+    alert(`✅ Estado actualizado a ${nuevoEstado}`);
+    cargarVentas();
+  } catch (err) {
+    console.error(err);
+    alert("❌ No se pudo actualizar el estado.");
   }
 }
 
@@ -119,13 +161,14 @@ async function cargarVentas() {
         <td>${v.metod_pago}</td>
         <td>${v.descuento_venta.toFixed(2)}</td>
         <td>${v.valor_venta.toFixed(2)}</td>
-        <td>${v.estado}</td>
+        <td>
+          <span class="estado-venta-text">${v.estado}</span>
+          <button class="button button--secondary btn-editar-estado" data-id="${v.id_venta}">Editar</button>
+        </td>
         <td>
           <button class="button button--info btn-ver-carrito" data-productos='${JSON.stringify(v.productos_comprados)}'>Ver productos</button>
         </td>
-        <td>
-          <button class="button button--danger btn-eliminar" data-id="${v.id_venta}">Eliminar</button>
-        </td>
+        
       `;
 
       tablaVentas.appendChild(fila);
@@ -137,44 +180,57 @@ async function cargarVentas() {
 }
 
 // 🧹 Acciones de la tabla
-tablaVentas.addEventListener("click", async (e) => {
+tablaVentas.addEventListener("click", (e) => {
   const ventaId = e.target.getAttribute("data-id");
 
+  // Eliminar
   if (e.target.classList.contains("btn-eliminar")) {
     if (!ventaId || !confirm("¿Eliminar esta venta?")) return;
 
-    try {
-      const res = await fetch(`${API_URL}/ventas/${ventaId}`, { method: "DELETE" });
-      if (!res.ok) throw new Error("Error al eliminar");
-
-      alert("✅ Venta eliminada.");
-      cargarVentas();
-    } catch (error) {
-      alert("❌ No se pudo eliminar la venta.");
-      console.error(error);
-    }
+    fetch(`${API_URL}/ventas/${ventaId}`, { method: "DELETE" })
+      .then(res => {
+        if (!res.ok) throw new Error("Error al eliminar");
+        alert("✅ Venta eliminada.");
+        cargarVentas();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("❌ No se pudo eliminar la venta.");
+      });
   }
 
+  // Ver carrito
   if (e.target.classList.contains("btn-ver-carrito")) {
     const productosStr = e.target.getAttribute("data-productos");
-
-    listaProductosCarrito.innerHTML = "";
-
-    if (!productosStr || productosStr.trim() === "") {
-      listaProductosCarrito.innerHTML = `<li>📭 Este carrito no tiene productos.</li>`;
-    } else {
-      // Si lo guardamos como string plano, solo mostrar
-      listaProductosCarrito.innerHTML = `<li>${productosStr}</li>`;
-    }
-
+    listaProductosCarrito.innerHTML = productosStr && productosStr.trim() !== ""
+      ? `<li>${productosStr}</li>`
+      : `<li>📭 Este carrito no tiene productos.</li>`;
     modalCarrito.classList.remove("modal--hidden");
+  }
+
+  // Editar estado
+  if (e.target.classList.contains("btn-editar-estado")) {
+    ventaSeleccionadaId = e.target.getAttribute("data-id");
+    modalEditarEstado.classList.remove("modal--hidden");
   }
 });
 
-// 🔙 Cerrar modal de carrito
+// 🔙 Cerrar modales
 btnCerrarCarrito.addEventListener("click", () => {
   modalCarrito.classList.add("modal--hidden");
   listaProductosCarrito.innerHTML = "";
+});
+btnCerrarEstado.addEventListener("click", () => {
+  modalEditarEstado.classList.add("modal--hidden");
+});
+
+// 💾 Guardar nuevo estado
+btnGuardarEstado.addEventListener("click", () => {
+  if (!ventaSeleccionadaId) return;
+  const nuevoEstado = selectNuevoEstado.value;
+  cambiarEstadoVenta(ventaSeleccionadaId, nuevoEstado);
+  modalEditarEstado.classList.add("modal--hidden");
+  ventaSeleccionadaId = null;
 });
 
 // Inicialización
