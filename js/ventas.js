@@ -26,7 +26,6 @@ function formatearFecha(fechaRaw) {
   });
 }
 
-// 📦 Cargar carritos disponible
 // 📦 Cargar carritos disponibles
 async function cargarCarritos() {
   try {
@@ -35,7 +34,7 @@ async function cargarCarritos() {
 
     selectCarrito.innerHTML = "";
 
-    if (carritos.length === 0) {
+    if (!Array.isArray(carritos) || carritos.length === 0) {
       selectCarrito.innerHTML = `<option disabled selected>No hay carritos disponibles</option>`;
       return;
     }
@@ -52,7 +51,6 @@ async function cargarCarritos() {
 // 🧾 Registrar venta
 formVenta.addEventListener("submit", async (e) => {
   e.preventDefault();
-
 
   const carritoId = selectCarrito.value;
   const fecha = fechaVenta.value;
@@ -98,6 +96,13 @@ async function cargarVentas() {
     const res = await fetch(`${API_URL}/ventas`);
     const ventas = await res.json();
 
+    if (!Array.isArray(ventas) || ventas.length === 0) {
+      ventasRegistradasEl.textContent = 0;
+      valorTotalEl.textContent = "0.00";
+      tablaVentas.innerHTML = `<tr><td colspan="8" style="text-align:center;">📭 No hay ventas registradas</td></tr>`;
+      return;
+    }
+
     ventasRegistradasEl.textContent = ventas.length;
     valorTotalEl.textContent = ventas.reduce((acc, v) => {
       const valor = parseFloat(v.valor_venta);
@@ -116,12 +121,13 @@ async function cargarVentas() {
         <td>${v.valor_venta.toFixed(2)}</td>
         <td>${v.estado}</td>
         <td>
-          <button class="button button--info btn-ver-carrito" data-carrito="${v.fk_id_carrito}">Ver productos</button>
+          <button class="button button--info btn-ver-carrito" data-productos='${JSON.stringify(v.productos_comprados)}'>Ver productos</button>
         </td>
         <td>
           <button class="button button--danger btn-eliminar" data-id="${v.id_venta}">Eliminar</button>
         </td>
       `;
+
       tablaVentas.appendChild(fila);
     });
   } catch (error) {
@@ -129,7 +135,6 @@ async function cargarVentas() {
     console.error(error);
   }
 }
-
 
 // 🧹 Acciones de la tabla
 tablaVentas.addEventListener("click", async (e) => {
@@ -151,27 +156,18 @@ tablaVentas.addEventListener("click", async (e) => {
   }
 
   if (e.target.classList.contains("btn-ver-carrito")) {
-    const carritoId = e.target.getAttribute("data-carrito");
-    if (!carritoId) return;
+    const productosStr = e.target.getAttribute("data-productos");
 
-    try {
-      const res = await fetch(`${API_URL}/carrito/${carritoId}`);
-      const productos = await res.json();
+    listaProductosCarrito.innerHTML = "";
 
-      listaProductosCarrito.innerHTML = "";
-      productos.forEach(p => {
-        listaProductosCarrito.innerHTML += `
-          <li class="carrito__item">
-            ${p.nombre_producto} - Cantidad: ${p.cantidad} - Precio: $${p.precio_unitario}
-          </li>
-        `;
-      });
-
-      modalCarrito.classList.remove("modal--hidden");
-    } catch (error) {
-      alert("❌ No se pudo cargar el carrito.");
-      console.error(error);
+    if (!productosStr || productosStr.trim() === "") {
+      listaProductosCarrito.innerHTML = `<li>📭 Este carrito no tiene productos.</li>`;
+    } else {
+      // Si lo guardamos como string plano, solo mostrar
+      listaProductosCarrito.innerHTML = `<li>${productosStr}</li>`;
     }
+
+    modalCarrito.classList.remove("modal--hidden");
   }
 });
 

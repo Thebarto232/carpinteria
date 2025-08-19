@@ -7,6 +7,8 @@
   <title>Catálogo del Cliente</title>
   <link rel="stylesheet" href="/stylos para el cliente/styles.css" />
   <link rel="stylesheet" href="/costum/costum.css" />  
+  <link rel="stylesheet" href="/css/styles.css">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -19,15 +21,16 @@
         <img src="../img/logo.jpg" alt="Logo de Carpintería" class="logo__img">
         <div class="header__derecha">
           <button id="cerrarSesionBtn" class="cerrar-sesion">Cerrar sesión</button>
+          
 
           <!-- 🔐 Registro solo si no hay sesión activa -->
-          <div class="auth__menu" id="registroClienteMenu">
+          <!-- <div class="auth__menu" id="registroClienteMenu">
             <button class="auth__btn auth__btn--register">Registro</button>
             <div class="auth__dropdown">
               <a href="/js/validaciones/login/registros/cliente/registro_clientes.html" class="auth__item">Registrar
                 cliente</a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </header>
@@ -48,14 +51,14 @@
     </aside>
 
     <!-- 🧱 Main Content -->
-    <main id="catalogo">
+    <!-- <main id="catalogo">
       <h1>📦 Catálogo de productos</h1>
       <div class="catalogo_container" id="catalogoContainer">
-        <!-- Render dinámico desde catalogo.js -->
-      </div>
-    </main>
 
-    <!-- 📌 Footer -->
+      </div>
+    </main> -->
+
+  
     <footer>
       <div class="footer_content">
         <p>Sistema de gestión para carpintería — Cliente</p>
@@ -64,6 +67,8 @@
 
     <!-- 🧠 Script que conecta con productos y carrito -->
     <script type="module" src="../js/cliente/catalogo.js"></script>
+    <script type="module" src="/home.js"></script>
+
   </div>
 </body>
 

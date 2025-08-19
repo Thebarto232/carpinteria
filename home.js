@@ -4,12 +4,12 @@ document.querySelectorAll(".cerrar-sesion").forEach((btn) => {
     const isLoggedIn = sessionStorage.getItem("user") || localStorage.getItem("user");
     if (!isLoggedIn) {
       alert("No hay sesión activa.");
-      return;
+      
+      window.location.href = "/js/validaciones/login/login.html"; // ✅ Redirección segura
     }
 
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = "/js/validaciones/login/"; // ✅ Redirección segura
   });
 });
 

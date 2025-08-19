@@ -1,11 +1,11 @@
   document.addEventListener("DOMContentLoaded", () => {
     // 🔹 Validar que el usuario logueado sea ADMIN/PROVEEDOR (fk_id_rol = 1)
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-    if (!usuario || usuario.fk_id_rol !== 1) {
-      alert("Acceso denegado. Debes iniciar sesión como administrador/proveedor.");
-      window.location.href = "../../../index.html";
-      return;
-    }
+    // const usuario = JSON.parse(localStorage.getItem("usuario"));
+    // if (!usuario || usuario.fk_id_rol !== 1) {
+    //   alert("Acceso denegado. Debes iniciar sesión como administrador/proveedor.");
+    //   window.location.href = "../../../index.html";
+    //   return;
+    // }
 
     cargarCategorias();
 
