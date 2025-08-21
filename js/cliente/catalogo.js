@@ -1,10 +1,19 @@
-const codUsuario = 2; // ⚠️ Este valor debe venir del login real
+const metodoPago = "Transferencia"; // Puedes hacerlo dinámico si lo deseas
 
-// 🔍 Obtener carrito ACTIVO del usuario
-async function obtenerCarritoActivo(codUsuario) {
-  const res = await fetch(`http://localhost:8080/pruebaApi/api/carrito/carrito-activo/${codUsuario}`);
-  const data = await res.json();
-  if (!res.ok || !data.id_carrito) throw new Error("No se pudo obtener el carrito activo");
+// 🔍 Obtener carrito ACTIVO del usuario logueado (por sesión)
+async function obtenerCarritoActivo() {
+  const res = await fetch("http://localhost:8080/pruebaApi/api/carrito/carrito-activo", {
+    credentials: "include"
+  });
+
+  let data;
+  try {
+    data = await res.json();
+  } catch (e) {
+    throw new Error("Respuesta inválida del servidor al obtener carrito.");
+  }
+
+  if (!res.ok || !data.id_carrito) throw new Error(data.error || "No se pudo obtener el carrito activo");
   return data.id_carrito;
 }
 
@@ -26,10 +35,9 @@ function crearCardProducto(producto) {
       <p>Categoría: ${categoria}</p>
       <p>Precio: $${precio.toLocaleString()}</p>
       <p class="stock-info">Stock: ${stock} unidades</p>
-      ${
-        stock <= 0
-          ? `<p class="stock-agotado">Agotado</p>`
-          : `
+      ${stock <= 0
+      ? `<p class="stock-agotado">Agotado</p>`
+      : `
             <input type="number" class="input-cantidad" min="1" max="${stock}" value="1">
             <button class="btn-agregar" 
               data-id="${producto.id_producto}" 
@@ -38,17 +46,22 @@ function crearCardProducto(producto) {
               Agregar al carrito
             </button>
           `
-      }
+    }
     </div>
   `;
 
   return card;
 }
 
-// 📌 Función: enviar producto al backend usando carrito dinámico
+// 📌 Función: enviar producto al backend usando carrito por sesión
 async function agregarAlCarrito(btn, idProducto, precioUnitario, stockDisponible) {
   const inputCantidad = btn.parentElement.querySelector(".input-cantidad");
   const cantidad = parseInt(inputCantidad.value);
+
+  if (isNaN(cantidad) || cantidad <= 0) {
+    alert("Cantidad inválida.");
+    return;
+  }
 
   if (cantidad > stockDisponible) {
     alert("No puedes agregar más de lo disponible.");
@@ -56,22 +69,36 @@ async function agregarAlCarrito(btn, idProducto, precioUnitario, stockDisponible
   }
 
   try {
-    const idCarrito = await obtenerCarritoActivo(codUsuario);
+    const idCarrito = await obtenerCarritoActivo();
 
     const item = {
       fk_id_carrito: idCarrito,
       fk_id_producto: idProducto,
       cantidad: cantidad,
-      precio_unitario: precioUnitario
+      precio_unitario: precioUnitario,
+      subtotal: cantidad * precioUnitario
     };
 
     const res = await fetch("http://localhost:8080/pruebaApi/api/carrito/agregar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(item)
     });
 
-    const data = await res.json();
+    let data;
+    try {
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw new Error(text);
+      }
+    } catch (e) {
+      throw new Error("Respuesta inválida del servidor: " + e.message);
+    }
+
     if (!res.ok) throw new Error(data.error || "Error al agregar producto");
 
     alert(data.mensaje || "Producto agregado ✅");
@@ -85,12 +112,19 @@ async function agregarAlCarrito(btn, idProducto, precioUnitario, stockDisponible
 document.addEventListener("DOMContentLoaded", () => {
   const catalogoContainer = document.getElementById("catalogo");
 
-  fetch("http://localhost:8080/pruebaApi/api/productos")
-    .then(res => {
+  fetch("http://localhost:8080/pruebaApi/api/productos", {
+    credentials: "include"
+  })
+    .then(async res => {
       if (!res.ok) throw new Error("Error al cargar productos");
-      return res.json();
-    })
-    .then(productos => {
+
+      let productos;
+      try {
+        productos = await res.json();
+      } catch (e) {
+        throw new Error("Respuesta inválida del servidor al cargar productos.");
+      }
+
       catalogoContainer.innerHTML = "";
 
       productos.forEach(producto => {
@@ -98,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
         catalogoContainer.appendChild(card);
       });
 
-      // 🔗 Activar listeners de botones después del render
       document.querySelectorAll(".btn-agregar").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = parseInt(btn.dataset.id);
@@ -110,6 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error("❌ Error al cargar productos:", err.message);
-      catalogoContainer.innerHTML = "<p>Error al cargar productos.</p>";
+      catalogoContainer.innerHTML = `<p class="mensaje-error">Error al cargar productos: ${err.message}</p>`;
     });
 });

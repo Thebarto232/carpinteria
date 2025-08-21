@@ -1,12 +1,11 @@
-const codUsuario = 2; // ⚠️ Este valor debe venir del login real
-const metodoPago = "Transferencia";
+const metodoPago = "Transferencia"; // Puedes hacerlo dinámico si lo deseas
 
 let itemsConfirmados = [];
-let idCarrito = null; // Se obtiene dinámicamente
+let idCarrito = null; // Se obtiene dinámicamente desde la sesión
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    idCarrito = await obtenerCarritoActivo(codUsuario);
+    idCarrito = await obtenerCarritoActivo(); // 🔄 Ya no se usa codUsuario
     console.log("🛒 Carrito activo obtenido:", idCarrito);
 
     cargarCarrito(idCarrito);
@@ -16,7 +15,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Debes confirmar al menos un producto antes de finalizar la compra.");
         return;
       }
-      finalizarCompra(idCarrito, metodoPago);
+      finalizarCompra(metodoPago); // ✅ Ya no se pasa idCarrito
+
     });
   } catch (err) {
     console.error("❌ Error al inicializar carrito:", err.message);
@@ -24,27 +24,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// 🔍 Obtener carrito ACTIVO del usuario
-async function obtenerCarritoActivo(codUsuario) {
-  const res = await fetch(`http://localhost:8080/pruebaApi/api/carrito/carrito-activo/${codUsuario}`);
+// 🔍 Obtener carrito ACTIVO usando sesión
+async function obtenerCarritoActivo() {
+  const res = await fetch("http://localhost:8080/pruebaApi/api/carrito/carrito-activo", {
+    credentials: "include" // 🔐 Esto envía la cookie de sesión
+  });
   const data = await res.json();
   if (!res.ok || !data.id_carrito) throw new Error("No se pudo obtener el carrito activo");
   return data.id_carrito;
 }
 
-
 // 🗑️ Eliminar ítem del carrito y devolver stock
 function eliminarItemDelCarrito(idItem, cardElement) {
   fetch(`http://localhost:8080/pruebaApi/api/carrito/item/${idItem}`, {
-    method: "DELETE"
+    method: "DELETE",
+    credentials: "include"
   })
     .then(async res => {
-      let data;
-      try {
-        data = await res.json();
-      } catch (jsonError) {
-        throw new Error("Respuesta inválida del servidor.");
-      }
+      const data = await res.json();
 
       if (!res.ok) {
         console.warn("⚠️ Backend devolvió error:", data.error);
@@ -68,7 +65,9 @@ function cargarCarrito(idCarrito) {
   const contenedor = document.getElementById("carrito-container");
   contenedor.innerHTML = "<p>Cargando carrito...</p>";
 
-  fetch(`http://localhost:8080/pruebaApi/api/carrito/${idCarrito}`)
+  fetch(`http://localhost:8080/pruebaApi/api/carrito/${idCarrito}`, {
+    credentials: "include"
+  })
     .then(res => res.json())
     .then(items => {
       contenedor.innerHTML = "";
@@ -119,36 +118,58 @@ function cargarCarrito(idCarrito) {
     });
 }
 
-// 🧾 Finalizar compra
-function finalizarCompra(idCarrito, metodoPago) {
+// 🧾 Finalizar compra usando sesión
+function finalizarCompra(metodoPago) {
   fetch("http://localhost:8080/pruebaApi/api/venta/finalizar", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      fk_id_carrito: idCarrito,
-      metod_pago: metodoPago
-    })
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({ metod_pago: metodoPago })
   })
     .then(async res => {
       let data;
       try {
-        data = await res.json();
-      } catch (jsonError) {
-        throw new Error("Respuesta inválida del servidor.");
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          data = await res.json();
+        } else {
+          const text = await res.text();
+          throw new Error(text);
+        }
+      } catch (e) {
+        throw new Error("Respuesta inválida del servidor: " + e.message);
       }
 
-      if (!res.ok) {
-        throw new Error(data.error || "Error al confirmar la compra.");
-      }
+      if (!res.ok) throw new Error(data.error || "Error al confirmar la compra.");
 
       alert(data.mensaje || "Compra confirmada ✅");
+
+      // 🧹 Limpiar estado local
       itemsConfirmados = [];
-      window.location.href = "/cliente/historial.html";
+
+      // 🔄 Esperar a que el nuevo carrito esté disponible
+      setTimeout(async () => {
+        try {
+          const nuevoId = await obtenerCarritoActivo();
+          const contenedor = document.getElementById("carrito-container");
+
+          if (!nuevoId || nuevoId === -1) {
+            contenedor.innerHTML = "<p>No tienes compras pendientes.</p>";
+          } else {
+            idCarrito = nuevoId;
+            contenedor.innerHTML = "<p>Nuevo carrito creado. Puedes seguir comprando.</p>";
+          }
+
+          // ✅ Redirigir al historial después de limpiar la vista
+          window.location.href = "/cliente/historial.html";
+        } catch (err) {
+          console.error("❌ Error al obtener nuevo carrito:", err.message);
+        }
+      }, 500); // Espera breve para que el backend cree el nuevo carrito
     })
     .catch(err => {
       console.error("❌ Error al finalizar compra:", err.message);
       alert("Error al confirmar la compra: " + err.message);
     });
 }
+
