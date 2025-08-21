@@ -1,19 +1,37 @@
-const idCarrito = 1; // ⚠️ Este valor debe venir de sesión/login real
+const codUsuario = 2; // ⚠️ Este valor debe venir del login real
 const metodoPago = "Transferencia";
 
 let itemsConfirmados = [];
+let idCarrito = null; // Se obtiene dinámicamente
 
-document.addEventListener("DOMContentLoaded", () => {
-  cargarCarrito(idCarrito);
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    idCarrito = await obtenerCarritoActivo(codUsuario);
+    console.log("🛒 Carrito activo obtenido:", idCarrito);
 
-  document.getElementById("confirmar-compra").addEventListener("click", () => {
-    if (itemsConfirmados.length === 0) {
-      alert("Debes confirmar al menos un producto antes de finalizar la compra.");
-      return;
-    }
-    finalizarCompra(idCarrito, metodoPago);
-  });
+    cargarCarrito(idCarrito);
+
+    document.getElementById("confirmar-compra").addEventListener("click", () => {
+      if (itemsConfirmados.length === 0) {
+        alert("Debes confirmar al menos un producto antes de finalizar la compra.");
+        return;
+      }
+      finalizarCompra(idCarrito, metodoPago);
+    });
+  } catch (err) {
+    console.error("❌ Error al inicializar carrito:", err.message);
+    alert("No se pudo cargar tu carrito. Intenta más tarde.");
+  }
 });
+
+// 🔍 Obtener carrito ACTIVO del usuario
+async function obtenerCarritoActivo(codUsuario) {
+  const res = await fetch(`http://localhost:8080/pruebaApi/api/carrito/carrito-activo/${codUsuario}`);
+  const data = await res.json();
+  if (!res.ok || !data.id_carrito) throw new Error("No se pudo obtener el carrito activo");
+  return data.id_carrito;
+}
+
 
 // 🗑️ Eliminar ítem del carrito y devolver stock
 function eliminarItemDelCarrito(idItem, cardElement) {

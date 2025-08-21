@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 🔐 Obtener el ID del cliente desde localStorage, sesión o usar 2 por defecto
     const idCliente = localStorage.getItem("idCliente") || 2;
-
     cargarHistorialCompras(idCliente);
 });
 
@@ -19,7 +17,7 @@ export function cargarHistorialCompras(idCliente) {
 
         const ventas = await res.json();
 
-        if (ventas.length === 0) {
+        if (!Array.isArray(ventas) || ventas.length === 0) {
             contenedor.innerHTML = `<p class="mensaje-vacio">No hay compras registradas.</p>`;
             return;
         }
@@ -32,21 +30,45 @@ export function cargarHistorialCompras(idCliente) {
             });
 
             const div = document.createElement("div");
-            div.className = `compra-item estado-${v.estado.toLowerCase()}`;
+            div.className = `compra-item estado-${(v.estado || "desconocido").toLowerCase()}`;
+
+            // 🧩 Renderizar productos comprados
+            let productosHTML = "";
+            try {
+                const productos = JSON.parse(v.productos_comprados || "[]");
+                if (Array.isArray(productos) && productos.length > 0) {
+                    productosHTML = `
+                        <details class="productos-comprados">
+                            <summary>🛒 Productos comprados (${productos.length})</summary>
+                            <ul>
+                                ${productos.map(p => `
+                                    <li>
+                                        <strong>${p.producto}</strong> — 
+                                        ${p.cantidad} unidad(es) × $${Number(p.precio_unitario).toLocaleString("es-CO")}
+                                    </li>
+                                `).join("")}
+                            </ul>
+                        </details>
+                    `;
+                }
+            } catch (e) {
+                console.warn(`⚠️ Error al parsear productos_comprados para venta ${v.id_venta}:`, e);
+            }
+
             div.innerHTML = `
                 <p><strong>Fecha:</strong> ${fecha}</p>
                 <p><strong>Método de pago:</strong> ${v.metod_pago}</p>
-                <p><strong>Total:</strong> $${v.valor_venta.toLocaleString("es-CO")}</p>
+                <p><strong>Total:</strong> $${Number(v.valor_venta).toLocaleString("es-CO")}</p>
                 <p><strong>Estado:</strong> ${v.estado}</p>
+                ${productosHTML}
             `;
 
             contenedor.appendChild(div);
         });
     })
     .catch(err => {
-        console.error("Error al conectar con el servidor:", err);
+        console.error("❌ Error al conectar con el servidor:", err);
         const contenedor = document.getElementById("contenedor-historial-compras");
         contenedor.innerHTML = `<p class="mensaje-error">Error al conectar con el servidor.</p>`;
     });
 }
-    
