@@ -1,11 +1,11 @@
-const metodoPago = "Transferencia"; // Puedes hacerlo dinámico si lo deseas
+const metodoPago = "Transferencia"; // Podrías hacerlo dinámico
 
 let itemsConfirmados = [];
-let idCarrito = null; // Se obtiene dinámicamente desde la sesión
+let idCarrito = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    idCarrito = await obtenerCarritoActivo(); // 🔄 Ya no se usa codUsuario
+    idCarrito = await obtenerCarritoActivo();
     console.log("🛒 Carrito activo obtenido:", idCarrito);
 
     cargarCarrito(idCarrito);
@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Debes confirmar al menos un producto antes de finalizar la compra.");
         return;
       }
-      finalizarCompra(metodoPago); // ✅ Ya no se pasa idCarrito
-
+      finalizarCompra(metodoPago); // 🚀 Ahora backend valida el cliente y carrito
     });
   } catch (err) {
     console.error("❌ Error al inicializar carrito:", err.message);
@@ -24,40 +23,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// 🔍 Obtener carrito ACTIVO usando sesión
+// 🔍 Carrito activo (vinculado al usuario logueado en sesión)
 async function obtenerCarritoActivo() {
   const res = await fetch("http://localhost:8080/pruebaApi/api/carrito/carrito-activo", {
-    credentials: "include" // 🔐 Esto envía la cookie de sesión
+    credentials: "include"
   });
   const data = await res.json();
   if (!res.ok || !data.id_carrito) throw new Error("No se pudo obtener el carrito activo");
   return data.id_carrito;
-}
-
-// 🗑️ Eliminar ítem del carrito y devolver stock
-function eliminarItemDelCarrito(idItem, cardElement) {
-  fetch(`http://localhost:8080/pruebaApi/api/carrito/item/${idItem}`, {
-    method: "DELETE",
-    credentials: "include"
-  })
-    .then(async res => {
-      const data = await res.json();
-
-      if (!res.ok) {
-        console.warn("⚠️ Backend devolvió error:", data.error);
-        throw new Error(data.error || "Error desconocido al eliminar el ítem.");
-      }
-
-      console.log("🗑️", data.mensaje);
-      alert(data.mensaje);
-
-      cardElement.remove();
-      itemsConfirmados = itemsConfirmados.filter(i => i !== idItem);
-    })
-    .catch(err => {
-      console.error("❌ Error al eliminar ítem:", err.message);
-      alert("No se pudo eliminar el producto: " + err.message);
-    });
 }
 
 // 📦 Renderizar carrito
@@ -118,7 +91,30 @@ function cargarCarrito(idCarrito) {
     });
 }
 
-// 🧾 Finalizar compra usando sesión
+// 🗑️ Eliminar ítem
+function eliminarItemDelCarrito(idItem, cardElement) {
+  fetch(`http://localhost:8080/pruebaApi/api/carrito/item/${idItem}`, {
+    method: "DELETE",
+    credentials: "include"
+  })
+    .then(async res => {
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || "Error desconocido al eliminar el ítem.");
+
+      console.log("🗑️", data.mensaje);
+      alert(data.mensaje);
+
+      cardElement.remove();
+      itemsConfirmados = itemsConfirmados.filter(i => i !== idItem);
+    })
+    .catch(err => {
+      console.error("❌ Error al eliminar ítem:", err.message);
+      alert("No se pudo eliminar el producto: " + err.message);
+    });
+}
+
+// 🧾 Finalizar compra
 function finalizarCompra(metodoPago) {
   fetch("http://localhost:8080/pruebaApi/api/venta/finalizar", {
     method: "POST",
@@ -127,49 +123,26 @@ function finalizarCompra(metodoPago) {
     body: JSON.stringify({ metod_pago: metodoPago })
   })
     .then(async res => {
-      let data;
-      try {
-        const contentType = res.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-          data = await res.json();
-        } else {
-          const text = await res.text();
-          throw new Error(text);
-        }
-      } catch (e) {
-        throw new Error("Respuesta inválida del servidor: " + e.message);
-      }
-
+      const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al confirmar la compra.");
 
       alert(data.mensaje || "Compra confirmada ✅");
 
-      // 🧹 Limpiar estado local
       itemsConfirmados = [];
 
-      // 🔄 Esperar a que el nuevo carrito esté disponible
+      // 🔄 Refrescar carrito activo (o redirigir al historial)
       setTimeout(async () => {
         try {
           const nuevoId = await obtenerCarritoActivo();
-          const contenedor = document.getElementById("carrito-container");
-
-          if (!nuevoId || nuevoId === -1) {
-            contenedor.innerHTML = "<p>No tienes compras pendientes.</p>";
-          } else {
-            idCarrito = nuevoId;
-            contenedor.innerHTML = "<p>Nuevo carrito creado. Puedes seguir comprando.</p>";
-          }
-
-          // ✅ Redirigir al historial después de limpiar la vista
+          idCarrito = nuevoId;
           window.location.href = "/cliente/historial.html";
         } catch (err) {
           console.error("❌ Error al obtener nuevo carrito:", err.message);
         }
-      }, 500); // Espera breve para que el backend cree el nuevo carrito
+      }, 500);
     })
     .catch(err => {
       console.error("❌ Error al finalizar compra:", err.message);
       alert("Error al confirmar la compra: " + err.message);
     });
 }
-
