@@ -43,8 +43,18 @@ export function cargarHistorialCompras() {
         // 🧩 Renderizar productos comprados
         let productosHTML = "";
         try {
-          const productos = JSON.parse(v.productos_comprados || "[]");
-          if (Array.isArray(productos) && productos.length > 0) {
+          // Si guardaste productos como texto plano separado por comas, no JSON
+          let productos = [];
+          if (v.productos_comprados) {
+            try {
+              productos = JSON.parse(v.productos_comprados);
+            } catch {
+              // Si no es JSON, convertir en array de strings
+              productos = v.productos_comprados.split(",").map(p => ({ producto: p.trim(), cantidad: 1, precio_unitario: 0 }));
+            }
+          }
+
+          if (productos.length > 0) {
             productosHTML = `
               <details class="productos-comprados">
                 <summary>🛒 Productos comprados (${productos.length})</summary>
@@ -65,8 +75,8 @@ export function cargarHistorialCompras() {
 
         div.innerHTML = `
           <p><strong>Fecha:</strong> ${fecha}</p>
-          <p><strong>Método de pago:</strong> ${v.metod_pago}</p>
-          <p><strong>Total:</strong> $${Number(v.valor_venta).toLocaleString("es-CO")}</p>
+          <p><strong>Método de pago:</strong> ${v.metod_pago || v.metodo_pago || "No definido"}</p>
+          <p><strong>Total:</strong> $${Number(v.total_a_pagar || v.valor_venta || 0).toLocaleString("es-CO")}</p>
           <p><strong>Estado:</strong> ${v.estado}</p>
           ${productosHTML}
         `;

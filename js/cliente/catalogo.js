@@ -56,7 +56,7 @@ function crearCardProducto(producto) {
 // 📌 Función: enviar producto al backend usando carrito por sesión
 async function agregarAlCarrito(btn, idProducto, precioUnitario, stockDisponible) {
   const inputCantidad = btn.parentElement.querySelector(".input-cantidad");
-  const cantidad = parseInt(inputCantidad.value);
+  const cantidad = Number(inputCantidad.value);
 
   if (isNaN(cantidad) || cantidad <= 0) {
     alert("Cantidad inválida.");
@@ -72,12 +72,14 @@ async function agregarAlCarrito(btn, idProducto, precioUnitario, stockDisponible
     const idCarrito = await obtenerCarritoActivo();
 
     const item = {
-      fk_id_carrito: idCarrito,
-      fk_id_producto: idProducto,
-      cantidad: cantidad,
-      precio_unitario: precioUnitario,
-      subtotal: cantidad * precioUnitario
+      fk_id_carrito: Number(idCarrito),
+      fk_id_producto: Number(idProducto),
+      cantidad: Number(cantidad),
+      precio_unitario: Number(precioUnitario)
+      // ✅ No enviamos subtotal, el backend lo calcula
     };
+
+    console.log("📤 Enviando al backend:", item);
 
     const res = await fetch("http://localhost:8080/pruebaApi/api/carrito/agregar", {
       method: "POST",
@@ -104,7 +106,7 @@ async function agregarAlCarrito(btn, idProducto, precioUnitario, stockDisponible
     alert(data.mensaje || "Producto agregado ✅");
   } catch (err) {
     console.error("❌ Error al agregar al carrito:", err.message);
-    alert("No se pudo agregar el producto: " + err.message);
+    alert("No se pudo agregar el producto. Verifica stock o datos.");
   }
 }
 
@@ -134,9 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.querySelectorAll(".btn-agregar").forEach(btn => {
         btn.addEventListener("click", () => {
-          const id = parseInt(btn.dataset.id);
-          const precio = parseFloat(btn.dataset.precio);
-          const stock = parseInt(btn.dataset.stock);
+          const id = Number(btn.dataset.id);
+          const precio = Number(btn.dataset.precio);
+          const stock = Number(btn.dataset.stock);
           agregarAlCarrito(btn, id, precio, stock);
         });
       });

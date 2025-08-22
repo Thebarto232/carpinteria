@@ -1,5 +1,4 @@
 const metodoPago = "Transferencia"; // Podrías hacerlo dinámico
-
 let itemsConfirmados = [];
 let idCarrito = null;
 
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Debes confirmar al menos un producto antes de finalizar la compra.");
         return;
       }
-      finalizarCompra(metodoPago); // 🚀 Ahora backend valida el cliente y carrito
+      finalizarCompra(metodoPago);
     });
   } catch (err) {
     console.error("❌ Error al inicializar carrito:", err.message);
@@ -23,13 +22,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// 🔍 Carrito activo (vinculado al usuario logueado en sesión)
+// 🔍 Obtener carrito activo del usuario
 async function obtenerCarritoActivo() {
   const res = await fetch("http://localhost:8080/pruebaApi/api/carrito/carrito-activo", {
     credentials: "include"
   });
   const data = await res.json();
-  if (!res.ok || !data.id_carrito) throw new Error("No se pudo obtener el carrito activo");
+  if (!res.ok || !data.id_carrito) throw new Error(data.error || "No se pudo obtener el carrito activo");
   return data.id_carrito;
 }
 
@@ -99,7 +98,6 @@ function eliminarItemDelCarrito(idItem, cardElement) {
   })
     .then(async res => {
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.error || "Error desconocido al eliminar el ítem.");
 
       console.log("🗑️", data.mensaje);
@@ -115,22 +113,19 @@ function eliminarItemDelCarrito(idItem, cardElement) {
 }
 
 // 🧾 Finalizar compra
-function finalizarCompra(metodoPago) {
+function finalizarCompra(metod_pago) { // 🔹 parámetro renombrado
   fetch("http://localhost:8080/pruebaApi/api/venta/finalizar", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
-    body: JSON.stringify({ metod_pago: metodoPago })
+    body: JSON.stringify({ metod_pago: metod_pago }) // 🔹 coincide con la tabla y la clase
   })
     .then(async res => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al confirmar la compra.");
-
       alert(data.mensaje || "Compra confirmada ✅");
 
       itemsConfirmados = [];
-
-      // 🔄 Refrescar carrito activo (o redirigir al historial)
       setTimeout(async () => {
         try {
           const nuevoId = await obtenerCarritoActivo();
